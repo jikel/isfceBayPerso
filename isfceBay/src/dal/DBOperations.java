@@ -16,5 +16,6 @@ public interface DBOperations {
 	public abstract LinkedList<Objet> getObjet();
 	public abstract boolean createObjet(Objet newObjet);
 	public abstract Objet dbObtenirObjet(int idObjet);
-
+	public abstract LinkedList<Categorie> getCategories();
+	public Categorie getCategorie(int id);
 }

@@ -129,6 +129,35 @@ public class DBOperationsSQLite implements DBOperations {
 			return false;
 		}
 	}
+
+	public LinkedList<Categorie> getCategories(){
+        LinkedList<Categorie> categories = new LinkedList<Categorie>();
+        Connection c = null;
+        PreparedStatement stmt = null;
+
+        try {
+            Categorie categorie = null;
+            c = DriverManager
+                    .getConnection(dbUrl);
+            c.setAutoCommit(false);
+            stmt = c.prepareStatement("SELECT * FROM Categorie");
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                categorie = new Categorie(rs.getInt("idCategorie"),rs.getString("nomCategorie"));
+                categories.add(categorie);
+            }
+            rs.close();
+            stmt.close();
+            c.close();
+            return categories;
+
+        } catch (Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            return null;
+        }   
+    }
+
 	public Categorie getCategorie(int id){
 		Connection c = null;
 		PreparedStatement stmt = null;

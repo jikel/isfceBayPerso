@@ -2,6 +2,7 @@ package dal;
 
 import java.util.LinkedList;
 import launcher.Launcher;
+import model.Categorie;
 import model.Enchere;
 import model.Objet;
 import model.Utilisateur;
@@ -66,6 +67,18 @@ public class DBOperationsMock implements DBOperations {
 
 	@Override
 	public Objet dbObtenirObjet(int idObjet) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public LinkedList<Categorie> getCategories() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Categorie getCategorie(int id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
