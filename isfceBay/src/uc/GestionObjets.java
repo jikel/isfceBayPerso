@@ -9,5 +9,7 @@ public interface GestionObjets {
 	public abstract boolean modifierObjet (int idObjet);
 	
 	public abstract boolean supprimerObjet (int idObjet);
+	
+	public abstract int choisirObjet();
 
 }

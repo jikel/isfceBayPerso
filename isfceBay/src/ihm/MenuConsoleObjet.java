@@ -3,6 +3,9 @@ package ihm;
 import java.util.LinkedList;
 import java.util.Scanner;
 
+import dal.DBOperations;
+import dal.DBOperationsSQLite;
+import launcher.Launcher;
 import uc.GestionObjets;
 
 
@@ -13,14 +16,38 @@ import uc.GestionObjets;
  */
 public class MenuConsoleObjet {
 	
-	// objet scanner qui permettra de lire ce que l'utilisateur tape au clavier
 	static private Scanner scanner = new Scanner(System.in);
+
+	private Launcher launcher;
+
+	public MenuConsoleObjet(Launcher l) {
+		this.launcher = l;
+		menuGeneral();
+	}
 	
-	// objet représentant les fonctionnalités de la gestion d'objets
-	//private GestionObjets = new 
-
-	public static void main(String[] args) {
-
+	public void menuGeneral(){
+		System.out.println("Voir tous les objets dans la DB");
+		System.out.println("Ajouter un objet dans la DB");
+		System.out.println("Sélectionner un objet dans toute une liste");
+		
+		int choix = scanner.nextInt();
+		
+		if (choix == 1){
+			
+		}
+		
+		if (choix == 2){
+			
+		}
+		
+		if (choix == 3){
+			
+		}
+		
+		else{
+			System.out.println("Choix non valable");
+		}
+		
 	}
 
 }

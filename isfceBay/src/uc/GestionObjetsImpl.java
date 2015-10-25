@@ -37,4 +37,11 @@ public class GestionObjetsImpl implements GestionObjets{
 		return false;
 	}
 
+	@Override
+	public int choisirObjet() {
+		DBOperations dbOperations = launcher.getDBOperations();
+		dbOperations.getObjet();
+		return 0;
+	}
+
 }
