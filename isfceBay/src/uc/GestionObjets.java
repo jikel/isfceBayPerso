@@ -13,5 +13,8 @@ public interface GestionObjets {
 	public abstract Objet choisirObjet(int idObjet);
 	
 	public abstract void voirObjets();
+	
+	public abstract void voirObjetsUtilisateur(Utilisateur utilisateur);
+
 
 }

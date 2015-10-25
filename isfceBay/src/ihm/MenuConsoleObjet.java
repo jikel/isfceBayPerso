@@ -40,8 +40,12 @@ public class MenuConsoleObjet {
 		if (choix == 1){
 			System.out.println("Voici tous les objets");
 			launcher.getGestionObjets().voirObjets();
-			java.util.Date date= new java.util.Date();
-			System.out.println(new Timestamp(date.getTime()));
+			
+			creerObjetEnVente();
+			
+			launcher.getGestionObjets().voirObjets();
+
+
 			//launcher.getGestionObjets().ajouterObjet(object)
 			
 			//System.out.println(launcher.getGestionObjets().choisirObjet(1).toString());
@@ -61,6 +65,30 @@ public class MenuConsoleObjet {
 		else{
 			System.out.println("Choix non valable");
 		}
+		
+	}
+	
+	public boolean creerObjetEnVente() {
+		System.out.println("Entrez le nom de l'objet à vendre :");
+		String nomObjet = "test";
+		System.out.println("Entrez la description de l'objet à vendre :");
+		String descriptionObjet = "trucmuche";
+		System.out.println("Entrez le prix de départ pour la vente aux enchères");
+		double prixInitial = 125.20;
+		System.out.println("Voulez vendre l'objet avec un prix fixe (O/N) ?");
+		//String choix = scanner.nextLine();
+		double prixAchatImmediat = 0;
+//		if((choix.equals("O")) || (choix.equals("o"))) {
+//			System.out.println("Entrez le prix d'achat immédiat de l'objet :");
+//			prixAchatImmediat = scanner.nextDouble();
+//		}
+		java.util.Date date= new java.util.Date();
+		Timestamp dateAjout =new Timestamp(date.getTime());	
+		Timestamp dateCloture = dateAjout;
+		dateCloture.setMonth(dateCloture.getMonth()+1);
+
+		Objet newObjet = new Objet(nomObjet, descriptionObjet, prixInitial, prixAchatImmediat, dateAjout, dateCloture, 1, 1);
+		return launcher.getGestionObjets().ajouterObjet(newObjet);
 		
 	}
 

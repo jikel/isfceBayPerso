@@ -1,3 +1,4 @@
+
 package uc;
 
 import dal.DBOperations;
@@ -13,6 +14,7 @@ import model.Utilisateur;
 public class GestionUtilisateursImpl implements GestionUtilisateurs {
 
 	private Launcher launcher;
+	private Utilisateur currentUser;
 	
 	public GestionUtilisateursImpl(Launcher l){
 		this.launcher=l;
@@ -26,7 +28,8 @@ public class GestionUtilisateursImpl implements GestionUtilisateurs {
 			System.out.println("Impossible de connecter l'utilisateur. Login+password incorrects.");
 			return false;
 		}
-		System.out.println("L'utilisateur "+login+" est maintenant connecté");
+		currentUser = utilisateur;
+		System.out.println("L'utilisateur "+login+" est maintenant connectÃ©");
 		return true;
 	}
 
@@ -35,11 +38,15 @@ public class GestionUtilisateursImpl implements GestionUtilisateurs {
 		DBOperations dBOperations=launcher.getDBOperations();
 		boolean bla = dBOperations.createUtilisateur(user);
 		if (bla){
-			System.out.println("Inscription réussie!");
+			System.out.println("Inscription rÃ©ussie!");
 			return true;
 		}
-		System.out.println("Inscription échouée! rip");
+		System.out.println("Inscription Ã©chouÃ©e! rip");
 		return false;
 	}
 
+	public Utilisateur getCurrentUser(){
+		return currentUser;
+	}
 }
+

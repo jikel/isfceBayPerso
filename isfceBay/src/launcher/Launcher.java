@@ -36,14 +36,14 @@ public class Launcher {
 
 		// CHOIX INTERFACE SWING/CONSOLE
 		 //connexionSwing = new ConnexionSwing(this);
-		 //connexionConsole=new ConnexionConsole(this);
-		 objetConsole = new MenuConsoleObjet(this);
+		 connexionConsole=new ConnexionConsole(this);
+		 //objetConsole = new MenuConsoleObjet(this);
 		 //enchereConsole = new EnchereConsole(this);
 	}
 
 	public static void main(String[] args) {
 		Launcher launch = new Launcher();
-		//launch.connexionConsole.connexion();
+		launch.connexionConsole.connexion();
 	}
 
 	public ConnexionConsole getConnexionConsole() {

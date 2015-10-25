@@ -57,31 +57,32 @@ public class ConnexionConsole {
 						} while ((choixVenteEnchere != 1) && (choixVenteEnchere != 2));
 
 						// Voir objets en vente
-						if (choixVenteEnchere == 1){
+						if (choixVenteEnchere == 1) {
 							int choixObjetsCategorie = 3;
-							do{
+							do {
 								System.out.println("1. Voir tous les objets \n2. Choisir une catégorie");
 								choixObjetsCategorie = scanner.nextInt();
-							}while ((choixObjetsCategorie != 1) && (choixObjetsCategorie != 2));
-							
+							} while ((choixObjetsCategorie != 1) && (choixObjetsCategorie != 2));
+
 							// Voir tous les objets en vente
-							if (choixObjetsCategorie ==1){
-								
-							}
-							
-							// Choisir une catégori d'objet à vendre
-							if (choixObjetsCategorie == 2){
-								
+							if (choixObjetsCategorie == 1) {
+								// launcher.getGestionObjets().voirObjetsUtilisateur(utilisateur);
+
 							}
 
+							// Choisir une catégorie d'objet à vendre
+							if (choixObjetsCategorie == 2) {
+
+							}
 
 						}
-						
+
 						// Voir enchères suivies
-						if (choixVenteEnchere == 2){
+						if (choixVenteEnchere == 2) {
 							int choixEncheres = 3;
 							do {
-								System.out.println("1. Voir tous les objets que vous avez mis en vente \n2. Choisir une catégorie");
+								System.out.println(
+										"1. Voir tous les objets que vous avez mis en vente \n2. Choisir une catégorie");
 								choixEncheres = scanner.nextInt();
 							} while ((choixEncheres != 1) && (choixEncheres != 2));
 						}
@@ -145,8 +146,8 @@ public class ConnexionConsole {
 		boolean userConnectedlauncher = launcher.getGestionUtilisateurs().connecterUtilisateur(login, password);
 		return userConnectedlauncher;
 	}
-	
-	public boolean créerObjetEnVente() {
+
+	public boolean creerObjetEnVente() {
 		System.out.println("Entrez le nom de l'objet à vendre :");
 		String nomObjet = scanner.nextLine();
 		System.out.println("Entrez la description de l'objet à vendre :");
@@ -155,13 +156,20 @@ public class ConnexionConsole {
 		double prixInitial = scanner.nextDouble();
 		System.out.println("Voulez vendre l'objet avec un prix fixe (O/N) ?");
 		String choix = scanner.nextLine();
-		if((choix.equals("O")) || (choix.equals("o"))) {
+		double prixAchatImmediat = (Double) null;
+		if ((choix.equals("O")) || (choix.equals("o"))) {
 			System.out.println("Entrez le prix d'achat immédiat de l'objet :");
-			double prixAchatImmediat = scanner.nextDouble();
+			prixAchatImmediat = scanner.nextDouble();
 		}
-		Timestamp dateAjout;
-		
-		return true;
+		java.util.Date date = new java.util.Date();
+		Timestamp dateAjout = new Timestamp(date.getTime());
+		Timestamp dateCloture = dateAjout;
+		dateCloture.setMonth(dateCloture.getMonth() + 1);
+
+		Objet newObjet = new Objet(nomObjet, descriptionObjet, prixInitial, prixAchatImmediat, dateAjout, dateCloture,
+				1, 1);
+		return launcher.getGestionObjets().ajouterObjet(newObjet);
+
 	}
 
 }

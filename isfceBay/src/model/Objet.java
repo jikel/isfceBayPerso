@@ -20,10 +20,10 @@ public class Objet {
 		super();
 	}
 
-	public Objet(int idObjet, String nomObjet, String descriptionObjet, double prixInitial, double prixAchatImmediat,
+	public Objet(String nomObjet, String descriptionObjet, double prixInitial, double prixAchatImmediat,
 			Timestamp dateAjout, Timestamp dateCloture, int fkUtilisateur,
 			int fkCategorie) {
-		this.idObjet = idObjet;
+		//this.idObjet = idObjet;
 		this.nomObjet = nomObjet;
 		this.descriptionObjet = descriptionObjet;
 		this.prixInitial = prixInitial;
