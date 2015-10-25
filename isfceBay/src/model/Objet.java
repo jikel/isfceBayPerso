@@ -115,4 +115,12 @@ public class Objet {
 		this.fkCategorie = fkCategorie;
 	}
 
+	@Override
+	public String toString() {
+		return "Objet [idObjet=" + idObjet + ", nomObjet=" + nomObjet + ", descriptionObjet=" + descriptionObjet
+				+ ", prixInitial=" + prixInitial + ", prixAchatImmediat=" + prixAchatImmediat + ", dateAjout="
+				+ dateAjout + ", dateCloture=" + dateCloture + ", etatObjet=" + etatObjet + ", fkUtilisateur="
+				+ fkUtilisateur + ", fkCategorie=" + fkCategorie + "]";
+	}
+
 }

@@ -6,6 +6,7 @@ import dal.DBOperationsSQLite;
 import ihm.ConnexionConsole;
 import ihm.ConnexionSwing;
 import ihm.EnchereConsole;
+import ihm.MenuConsoleObjet;
 import uc.GestionUtilisateurs;
 import uc.GestionUtilisateursImpl;
 import uc.GestionObjets;
@@ -22,6 +23,7 @@ public class Launcher {
 	private GestionObjets gestionObjets;
 	private GestionEncheres gestionEncheres;	
 	private EnchereConsole enchereConsole ;
+	private MenuConsoleObjet objetConsole;
 
 	public Launcher() {
 		// CHOIX DB MOCK/SQLITE
@@ -34,13 +36,14 @@ public class Launcher {
 
 		// CHOIX INTERFACE SWING/CONSOLE
 		 //connexionSwing = new ConnexionSwing(this);
-		 connexionConsole=new ConnexionConsole(this);
+		 //connexionConsole=new ConnexionConsole(this);
+		 objetConsole = new MenuConsoleObjet(this);
 		 //enchereConsole = new EnchereConsole(this);
 	}
 
 	public static void main(String[] args) {
 		Launcher launch = new Launcher();
-		launch.connexionConsole.connexion();
+		//launch.connexionConsole.connexion();
 	}
 
 	public ConnexionConsole getConnexionConsole() {

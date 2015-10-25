@@ -83,5 +83,11 @@ public class DBOperationsMock implements DBOperations {
 		return null;
 	}
 
+	@Override
+	public void voirTousLesObjets() {
+		// TODO Auto-generated method stub
+		
+	}
+
 
 }

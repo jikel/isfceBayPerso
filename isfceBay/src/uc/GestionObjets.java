@@ -10,6 +10,8 @@ public interface GestionObjets {
 	
 	public abstract boolean supprimerObjet (int idObjet);
 	
-	public abstract int choisirObjet();
+	public abstract Objet choisirObjet(int idObjet);
+	
+	public abstract void voirObjets();
 
 }

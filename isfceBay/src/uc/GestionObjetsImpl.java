@@ -38,10 +38,18 @@ public class GestionObjetsImpl implements GestionObjets{
 	}
 
 	@Override
-	public int choisirObjet() {
+	public Objet choisirObjet(int idObjet) {
 		DBOperations dbOperations = launcher.getDBOperations();
-		dbOperations.getObjet();
-		return 0;
+		return dbOperations.dbObtenirObjet(idObjet);
 	}
+
+	@Override
+	public void voirObjets() {
+		// TODO Auto-generated method stub
+		DBOperations dbOperations = launcher.getDBOperations();
+		dbOperations.voirTousLesObjets();
+		
+	}
+
 
 }

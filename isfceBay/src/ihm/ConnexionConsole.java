@@ -1,6 +1,7 @@
 
 package ihm;
 
+import java.sql.Timestamp;
 import java.util.LinkedList;
 import java.util.Scanner;
 
@@ -143,6 +144,24 @@ public class ConnexionConsole {
 		System.out.println("Log:" + login + ", pwd:" + password);
 		boolean userConnectedlauncher = launcher.getGestionUtilisateurs().connecterUtilisateur(login, password);
 		return userConnectedlauncher;
+	}
+	
+	public boolean créerObjetEnVente() {
+		System.out.println("Entrez le nom de l'objet à vendre :");
+		String nomObjet = scanner.nextLine();
+		System.out.println("Entrez la description de l'objet à vendre :");
+		String descriptionObjet = scanner.nextLine();
+		System.out.println("Entrez le prix de départ pour la vente aux enchères");
+		double prixInitial = scanner.nextDouble();
+		System.out.println("Voulez vendre l'objet avec un prix fixe (O/N) ?");
+		String choix = scanner.nextLine();
+		if((choix.equals("O")) || (choix.equals("o"))) {
+			System.out.println("Entrez le prix d'achat immédiat de l'objet :");
+			double prixAchatImmediat = scanner.nextDouble();
+		}
+		Timestamp dateAjout;
+		
+		return true;
 	}
 
 }

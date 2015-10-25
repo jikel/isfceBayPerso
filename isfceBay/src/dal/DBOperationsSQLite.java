@@ -527,5 +527,37 @@ public class DBOperationsSQLite implements DBOperations {
 
 	}
 
+	@Override
+	public void voirTousLesObjets() {
+		Connection c= null;
+		Statement stmt = null;
+		
+		try{
+			c=DriverManager.getConnection(dbUrl);
+			c.setAutoCommit(false);
+			stmt = c.createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT * FROM Objet;");
+			
+			int idObjet;
+			String nomObjet;
+			String descriptionObjet;
+			
+			while (rs.next()){
+				idObjet = rs.getInt(1);
+				nomObjet = rs.getString(2);
+				descriptionObjet = rs.getString(3);
+				System.out.println(idObjet + "nom objet = "+ nomObjet + " description objet : "+ descriptionObjet);
+				
+			}
+			
+			rs.close();
+			stmt.close();
+			c.close();
+
+		} catch (Exception e) {
+			System.err.println (e.getClass().getName() + ": "+e.getMessage());
+		}
+	}
+
 
 }
