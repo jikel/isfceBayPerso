@@ -17,7 +17,7 @@ public interface DBOperations {
 	public abstract boolean createObjet(Objet newObjet);
 	public abstract Objet dbObtenirObjet(int idObjet);
 	public abstract void voirTousLesObjets ();
-	public abstract void voirTousLesObjetsUtilisateurs(Utilisateur utilisateur);
+	public abstract void voirTousLesObjetsUtilisateurs(int idUtilisateur);
 	public abstract LinkedList<Categorie> getCategories();
 	public abstract Categorie getCategorie(int id);
 	

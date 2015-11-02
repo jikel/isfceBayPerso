@@ -19,11 +19,27 @@ public class Objet {
 	public Objet() {
 		super();
 	}
-
+	
+	// Constructeur avec id
+	public Objet(int idObjet, String nomObjet, String descriptionObjet, double prixInitial, double prixAchatImmediat,
+			Timestamp dateAjout, Timestamp dateCloture, int fkUtilisateur,
+			int fkCategorie) {
+		this.idObjet = idObjet;
+		this.nomObjet = nomObjet;
+		this.descriptionObjet = descriptionObjet;
+		this.prixInitial = prixInitial;
+		this.prixAchatImmediat = prixAchatImmediat;
+		this.dateAjout = dateAjout;
+		this.dateCloture = dateCloture;
+		this.etatObjet = 1;
+		this.fkUtilisateur = fkUtilisateur;
+		this.fkCategorie = fkCategorie;
+	}
+	
+	// Constructeur sans id
 	public Objet(String nomObjet, String descriptionObjet, double prixInitial, double prixAchatImmediat,
 			Timestamp dateAjout, Timestamp dateCloture, int fkUtilisateur,
 			int fkCategorie) {
-		//this.idObjet = idObjet;
 		this.nomObjet = nomObjet;
 		this.descriptionObjet = descriptionObjet;
 		this.prixInitial = prixInitial;

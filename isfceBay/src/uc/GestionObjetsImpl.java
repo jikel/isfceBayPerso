@@ -53,7 +53,7 @@ public class GestionObjetsImpl implements GestionObjets{
 	@Override
 	public void voirObjetsUtilisateur(Utilisateur utilisateur) {
 		DBOperations dbOperations = launcher.getDBOperations();
-		dbOperations.voirTousLesObjetsUtilisateurs(utilisateur);
+		dbOperations.voirTousLesObjetsUtilisateurs(utilisateur.getId());
 		
 	}
 

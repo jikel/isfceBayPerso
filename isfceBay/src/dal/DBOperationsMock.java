@@ -90,7 +90,7 @@ public class DBOperationsMock implements DBOperations {
 	}
 
 	@Override
-	public void voirTousLesObjetsUtilisateurs(Utilisateur utilisateur) {
+	public void voirTousLesObjetsUtilisateurs(int idUtilisateur) {
 		// TODO Auto-generated method stub
 		
 	}

@@ -10,6 +10,7 @@ import dal.DBOperationsSQLite;
 import launcher.Launcher;
 import model.Categorie;
 import model.Objet;
+import model.Utilisateur;
 import uc.GestionObjets;
 import uc.GestionObjetsImpl;
 
@@ -54,11 +55,14 @@ public class MenuConsoleObjet {
 		}
 		
 		if (choix == 2){
+			Utilisateur u1 = new Utilisateur(15, "test", "mail", "password");
+			launcher.getGestionObjets().voirObjetsUtilisateur(u1);
 			
 		}
 		
 		if (choix == 3){
 			System.out.println("Objet sélectionné");
+			System.out.println(launcher.getGestionObjets().choisirObjet(5));
 			
 		}
 		

@@ -50,7 +50,7 @@ public class ConnexionConsole {
 					
 		/* -------------------------------------------------------------------------------------
 		 * -------------------------------------------------------------------------------------
-		 * ------------------------------------MA PARTIE---------------------------------------- 
+		 * ------------------------------------PARTIE OLIVIER----------------------------------- 
 		 * -------------------------------------------------------------------------------------
 		 * -------------------------------------------------------------------------------------
 		 */
@@ -73,7 +73,7 @@ public class ConnexionConsole {
 
 							// Voir tous les objets en vente
 							if (choixObjetsCategorie == 1) {
-								// launcher.getGestionObjets().voirObjetsUtilisateur(utilisateur);
+								launcher.getGestionObjets().voirObjetsUtilisateur(launcher.getGestionUtilisateurs().getCurrentUser());
 
 							}
 

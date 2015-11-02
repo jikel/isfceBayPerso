@@ -299,7 +299,7 @@ public class DBOperationsSQLite implements DBOperations {
 	
 	/* ------------------------------------------------------------------------------------
 	 * ------------------------------------------------------------------------------------
-	 * -----------------------------------CATEGORIE----------------------------------------
+	 * -----------------------------------OBJET--------------------------------------------
 	 * ------------------------------------------------------------------------------------
 	 * ------------------------------------------------------------------------------------
 	 */
@@ -431,8 +431,8 @@ public class DBOperationsSQLite implements DBOperations {
 			ResultSet rs = stmt.executeQuery("SELECT * FROM Objet ORDER BY dateCloture;");
 
 			while (rs.next()) {
-				//String idToCast = rs.getString("idObjet");
-				//int id = Integer.parseInt(idToCast);
+				String idToCast = rs.getString("idObjet");
+				int id = Integer.parseInt(idToCast);
 				String nomObjet = rs.getString("nomObjet");
 				String descriptionObjet = rs.getString("descriptionObjet");
 				String prixToCast = rs.getString("prixInitial");
@@ -464,7 +464,7 @@ public class DBOperationsSQLite implements DBOperations {
 	
 	@Override
 	public void voirTousLesObjets() {
-Connection c = null;
+		Connection c = null;
 		Statement stmt = null;
 
 		try {
@@ -495,7 +495,7 @@ Connection c = null;
 	}	
 	
 	@Override
-	public void voirTousLesObjetsUtilisateurs(Utilisateur utilisateur) {
+	public void voirTousLesObjetsUtilisateurs(int idUtilisateur) {
 		Connection c = null;
 		PreparedStatement stmt = null;
 
@@ -503,7 +503,7 @@ Connection c = null;
 			c = DriverManager.getConnection(dbUrl);
 			c.setAutoCommit(false);
 			stmt = c.prepareStatement("SELECT * FROM Objet WHERE fkUtilisateur = ?;");
-			stmt.setString(1, Integer.toString(utilisateur.getId()));
+			stmt.setString(1, Integer.toString(idUtilisateur));
 			ResultSet rs = stmt.executeQuery();
 
 			int idObjet;
