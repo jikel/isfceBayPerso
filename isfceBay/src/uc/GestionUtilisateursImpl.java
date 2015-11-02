@@ -48,5 +48,6 @@ public class GestionUtilisateursImpl implements GestionUtilisateurs {
 	public Utilisateur getCurrentUser(){
 		return currentUser;
 	}
+
 }
 

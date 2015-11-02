@@ -24,6 +24,12 @@ public class DBOperationsSQLite implements DBOperations {
 		}
 	}
 
+	/* ------------------------------------------------------------------------------------
+	 * ------------------------------------------------------------------------------------
+	 * -----------------------------------UTILISATEUR--------------------------------------
+	 * ------------------------------------------------------------------------------------
+	 * ------------------------------------------------------------------------------------
+	 */
 	public LinkedList<Utilisateur> getUtilisateurs() {
 
 		LinkedList<Utilisateur> utilisateurs = new LinkedList<Utilisateur>();
@@ -98,92 +104,6 @@ public class DBOperationsSQLite implements DBOperations {
 		}
 	}
 
-	public boolean createProfil(Profil profilToAdd) {
-
-		Connection connectionDB = null;
-		PreparedStatement requeteSQLPreparee = null;
-
-		try {
-			connectionDB = DriverManager.getConnection(dbUrl);
-			connectionDB.setAutoCommit(true);
-			requeteSQLPreparee = connectionDB.prepareStatement(
-					"INSERT INTO Profil( nom, prenom, dateNaissance, sexe, adresse, pays,idUtilisateur) VALUES( ?, ?, ?, ?, ?, ?, ?);");
-			requeteSQLPreparee.setString(1, profilToAdd.getNom());
-			requeteSQLPreparee.setString(2, profilToAdd.getPrenom());
-			requeteSQLPreparee.setString(3, profilToAdd.getDateNaissance().toString());
-			requeteSQLPreparee.setString(4, Integer.toString(profilToAdd.getSexe()));
-			requeteSQLPreparee.setString(5, profilToAdd.getAdresse());
-			requeteSQLPreparee.setString(6, profilToAdd.getPays());
-			requeteSQLPreparee.setString(7, Integer.toString(profilToAdd.getUser().getId()));
-
-			// !!!
-			// ATTENTION, pour un INSERT sql, on n'utilise pas la m�thode
-			// executeQuery, mais cette m�thode ci (executeUpdate()) :
-			requeteSQLPreparee.executeUpdate();
-			requeteSQLPreparee.close();
-			connectionDB.close();
-
-			return true;
-
-		} catch (Exception e) {
-			System.out.println("ERREUR OPERATION DB");
-			System.err.println(e.getClass().getName() + ": " + e.getMessage());
-			e.printStackTrace();
-			return false;
-		}
-	}
-
-	public LinkedList<Categorie> getCategories() {
-		LinkedList<Categorie> categories = new LinkedList<Categorie>();
-		Connection c = null;
-		PreparedStatement stmt = null;
-
-		try {
-			Categorie categorie = null;
-			c = DriverManager.getConnection(dbUrl);
-			c.setAutoCommit(false);
-			stmt = c.prepareStatement("SELECT * FROM Categorie");
-			ResultSet rs = stmt.executeQuery();
-
-			while (rs.next()) {
-				categorie = new Categorie(rs.getInt("idCategorie"), rs.getString("nomCategorie"));
-				categories.add(categorie);
-			}
-			rs.close();
-			stmt.close();
-			c.close();
-			return categories;
-
-		} catch (Exception e) {
-			System.err.println(e.getClass().getName() + ": " + e.getMessage());
-			return null;
-		}
-	}
-
-	public Categorie getCategorie(int id) {
-		Connection c = null;
-		PreparedStatement stmt = null;
-
-		try {
-			Categorie categorie = null;
-			c = DriverManager.getConnection(dbUrl);
-			c.setAutoCommit(false);
-			stmt = c.prepareStatement("SELECT * FROM Categorie WHERE idCategorie=?");
-			stmt.setString(1, Integer.toString(id));
-			ResultSet rs = stmt.executeQuery();
-
-			if (rs.next()) {
-				String nomCat = rs.getString("nomCategorie");
-				categorie = new Categorie(id, nomCat);
-			}
-			return categorie;
-
-		} catch (Exception e) {
-			System.err.println(e.getClass().getName() + ": " + e.getMessage());
-			return null;
-		}
-	}
-
 	public Utilisateur getUtilisateur(int id) {
 
 		Connection c = null;
@@ -239,7 +159,53 @@ public class DBOperationsSQLite implements DBOperations {
 			return null;
 		}
 	}
+	
+	
+	
+	
+	
+	/* ------------------------------------------------------------------------------------
+	 * ------------------------------------------------------------------------------------
+	 * -----------------------------------PROFIL-------------------------------------------
+	 * ------------------------------------------------------------------------------------
+	 * ------------------------------------------------------------------------------------
+	 */
+	
+	public boolean createProfil(Profil profilToAdd) {
 
+		Connection connectionDB = null;
+		PreparedStatement requeteSQLPreparee = null;
+
+		try {
+			connectionDB = DriverManager.getConnection(dbUrl);
+			connectionDB.setAutoCommit(true);
+			requeteSQLPreparee = connectionDB.prepareStatement(
+					"INSERT INTO Profil( nom, prenom, dateNaissance, sexe, adresse, pays,idUtilisateur) VALUES( ?, ?, ?, ?, ?, ?, ?);");
+			requeteSQLPreparee.setString(1, profilToAdd.getNom());
+			requeteSQLPreparee.setString(2, profilToAdd.getPrenom());
+			requeteSQLPreparee.setString(3, profilToAdd.getDateNaissance().toString());
+			requeteSQLPreparee.setString(4, Integer.toString(profilToAdd.getSexe()));
+			requeteSQLPreparee.setString(5, profilToAdd.getAdresse());
+			requeteSQLPreparee.setString(6, profilToAdd.getPays());
+			requeteSQLPreparee.setString(7, Integer.toString(profilToAdd.getUser().getId()));
+
+			// !!!
+			// ATTENTION, pour un INSERT sql, on n'utilise pas la m�thode
+			// executeQuery, mais cette m�thode ci (executeUpdate()) :
+			requeteSQLPreparee.executeUpdate();
+			requeteSQLPreparee.close();
+			connectionDB.close();
+
+			return true;
+
+		} catch (Exception e) {
+			System.out.println("ERREUR OPERATION DB");
+			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+			e.printStackTrace();
+			return false;
+		}
+	}	
+	
 	public Profil getProfil(Utilisateur user) {
 		Connection c = null;
 		PreparedStatement stmt = null;
@@ -271,7 +237,73 @@ public class DBOperationsSQLite implements DBOperations {
 			return null;
 		}
 	}
+	
+	/* ------------------------------------------------------------------------------------
+	 * ------------------------------------------------------------------------------------
+	 * -----------------------------------CATEGORIE----------------------------------------
+	 * ------------------------------------------------------------------------------------
+	 * ------------------------------------------------------------------------------------
+	 */
+	
+	public LinkedList<Categorie> getCategories() {
+		LinkedList<Categorie> categories = new LinkedList<Categorie>();
+		Connection c = null;
+		PreparedStatement stmt = null;
 
+		try {
+			Categorie categorie = null;
+			c = DriverManager.getConnection(dbUrl);
+			c.setAutoCommit(false);
+			stmt = c.prepareStatement("SELECT * FROM Categorie");
+			ResultSet rs = stmt.executeQuery();
+
+			while (rs.next()) {
+				categorie = new Categorie(rs.getInt("idCategorie"), rs.getString("nomCategorie"));
+				categories.add(categorie);
+			}
+			rs.close();
+			stmt.close();
+			c.close();
+			return categories;
+
+		} catch (Exception e) {
+			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+			return null;
+		}
+	}
+
+	public Categorie getCategorie(int id) {
+		Connection c = null;
+		PreparedStatement stmt = null;
+
+		try {
+			Categorie categorie = null;
+			c = DriverManager.getConnection(dbUrl);
+			c.setAutoCommit(false);
+			stmt = c.prepareStatement("SELECT * FROM Categorie WHERE idCategorie=?");
+			stmt.setString(1, Integer.toString(id));
+			ResultSet rs = stmt.executeQuery();
+
+			if (rs.next()) {
+				String nomCat = rs.getString("nomCategorie");
+				categorie = new Categorie(id, nomCat);
+			}
+			return categorie;
+
+		} catch (Exception e) {
+			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+			return null;
+		}
+	}
+
+	
+	/* ------------------------------------------------------------------------------------
+	 * ------------------------------------------------------------------------------------
+	 * -----------------------------------CATEGORIE----------------------------------------
+	 * ------------------------------------------------------------------------------------
+	 * ------------------------------------------------------------------------------------
+	 */
+	
 	public boolean createObjet(Objet newObjet) {
 		Connection connectionDB = null;
 		PreparedStatement requeteSQLPreparee = null;
@@ -510,7 +542,16 @@ Connection c = null;
 	 *            int
 	 * @return
 	 */
-
+	
+	
+	/* ------------------------------------------------------------------------------------
+	 * ------------------------------------------------------------------------------------
+	 * -----------------------------------CATEGORIE----------------------------------------
+	 * ------------------------------------------------------------------------------------
+	 * ------------------------------------------------------------------------------------
+	 */
+	
+	
 	public LinkedList<Enchere> obtenirToutesLesEncheres(int id) {
 
 		LinkedList<Enchere> lesEncheres = new LinkedList<Enchere>();

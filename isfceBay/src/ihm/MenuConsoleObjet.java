@@ -8,6 +8,7 @@ import java.util.Scanner;
 import dal.DBOperations;
 import dal.DBOperationsSQLite;
 import launcher.Launcher;
+import model.Categorie;
 import model.Objet;
 import uc.GestionObjets;
 import uc.GestionObjetsImpl;
@@ -32,7 +33,7 @@ public class MenuConsoleObjet {
 	
 	public void menuGeneral(){
 		System.out.println("Voir tous les objets dans la DB");
-		System.out.println("Ajouter un objet dans la DB");
+		System.out.println("Test de la fonction afficher objet");
 		System.out.println("Sélectionner un objet dans toute une liste");
 		
 		int choix = scanner.nextInt();
@@ -53,7 +54,6 @@ public class MenuConsoleObjet {
 		}
 		
 		if (choix == 2){
-			System.out.println("Objet ajouté");
 			
 		}
 		
@@ -91,5 +91,5 @@ public class MenuConsoleObjet {
 		return launcher.getGestionObjets().ajouterObjet(newObjet);
 		
 	}
-
+	
 }
