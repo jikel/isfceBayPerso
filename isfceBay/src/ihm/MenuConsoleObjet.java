@@ -33,14 +33,13 @@ public class MenuConsoleObjet {
 	}
 	
 	public void menuGeneral(){
-		System.out.println("Voir tous les objets dans la DB");
-		System.out.println("Test de la fonction afficher objet");
-		System.out.println("Sélectionner un objet dans toute une liste");
+		System.out.println("Voir liste objet + creer objet bidon");
+		System.out.println("Test de la methode getObjet");
+		System.out.println("Test de la methode getObjetUtilisateur");
 		
 		int choix = scanner.nextInt();
 
 		if (choix == 1){
-			System.out.println("Voici tous les objets");
 			launcher.getGestionObjets().voirObjets();
 			
 			creerObjetEnVente();
@@ -55,14 +54,14 @@ public class MenuConsoleObjet {
 		}
 		
 		if (choix == 2){
-			Utilisateur u1 = new Utilisateur(15, "test", "mail", "password");
-			launcher.getGestionObjets().voirObjetsUtilisateur(u1);
+			LinkedList <Objet> test = launcher.getGestionObjets().getObjets();
+			System.out.println(test);
+			
 			
 		}
 		
 		if (choix == 3){
-			System.out.println("Objet sélectionné");
-			System.out.println(launcher.getGestionObjets().choisirObjet(5));
+			System.out.println(launcher.getGestionObjets().getObjetsUtilisateur(15));
 			
 		}
 		

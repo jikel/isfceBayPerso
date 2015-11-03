@@ -1,5 +1,7 @@
 package uc;
 
+import java.util.LinkedList;
+
 import model.*;
 
 public interface GestionObjets {
@@ -15,6 +17,10 @@ public interface GestionObjets {
 	public abstract void voirObjets();
 	
 	public abstract void voirObjetsUtilisateur(Utilisateur utilisateur);
+	
+	public abstract LinkedList<Objet> getObjets();
+	
+	public abstract LinkedList<Objet> getObjetsUtilisateur (int idUtilisateur);
 
 
 }

@@ -1,5 +1,7 @@
 package uc;
 
+import java.util.LinkedList;
+
 import dal.DBOperations;
 import launcher.Launcher;
 import model.*;
@@ -55,6 +57,18 @@ public class GestionObjetsImpl implements GestionObjets{
 		DBOperations dbOperations = launcher.getDBOperations();
 		dbOperations.voirTousLesObjetsUtilisateurs(utilisateur.getId());
 		
+	}
+
+	@Override
+	public LinkedList<Objet> getObjets() {
+		DBOperations dbOperations = launcher.getDBOperations();
+		return dbOperations.getObjet();
+	}
+
+	@Override
+	public LinkedList<Objet> getObjetsUtilisateur(int idUtilisateur) {
+		DBOperations dbOperations = launcher.getDBOperations();
+		return dbOperations.getObjetUtilisateur(idUtilisateur);
 	}
 
 

@@ -420,40 +420,72 @@ public class DBOperationsSQLite implements DBOperations {
 
 	public LinkedList<Objet> getObjet() {
 
-		LinkedList<Objet> objets = new LinkedList<Objet>();
-		Connection c = null;
-		Statement stmt = null;
+		// Objet de connexion a la db
+		Connection connectionDB = null;
+		// Requete SQL "preparee", ce qui signifie "parametree"
+		PreparedStatement requeteSQLPreparee = null;
+
+		// Variable pour stocker l'objet sour forme d'un objet de type "objet",
+		// lorsqu'on l'aura trouve.
+		Objet objetTrouve = null;
+		LinkedList <Objet> objets = new LinkedList<Objet>();
 
 		try {
-			c = DriverManager.getConnection(dbUrl);
-			c.setAutoCommit(false);
-			stmt = c.createStatement();
-			ResultSet rs = stmt.executeQuery("SELECT * FROM Objet ORDER BY dateCloture;");
+			// Obtention d'une connexion vers la DB
+			connectionDB = DriverManager.getConnection(dbUrl);
+			// La base de donn�es se mettra a jour lorsqu'on la modifiera
+			// (necessaire).
+			connectionDB.setAutoCommit(true);
 
-			while (rs.next()) {
-				String idToCast = rs.getString("idObjet");
-				int id = Integer.parseInt(idToCast);
-				String nomObjet = rs.getString("nomObjet");
-				String descriptionObjet = rs.getString("descriptionObjet");
-				String prixToCast = rs.getString("prixInitial");
-				double prixInitial = Double.parseDouble(prixToCast);
-				String prixAchatImmediatToCast = rs.getString("prixAchatImmediat");
-				double prixAchatImmediat = Double.parseDouble(prixAchatImmediatToCast);
-				Timestamp dateAjout = rs.getTimestamp("dateAjout");
-				Timestamp dateCloture = rs.getTimestamp("dateCloture");
-				String idUserToCast = rs.getString("fkUtilisateur");
-				int fkUtilisateur = Integer.parseInt(idUserToCast);
-				String idCategorie = rs.getString("fkCategorie");
-				int fkCategorie = Integer.parseInt(idCategorie);
-				Objet objet = new Objet(nomObjet, descriptionObjet, prixInitial, prixAchatImmediat, dateAjout,
-						dateCloture, fkUtilisateur, fkCategorie);
-				objets.add(objet);
+			// On met des ? a chaque parametre
+			requeteSQLPreparee = connectionDB.prepareStatement("SELECT * FROM Objet ");
+			// On execute la requete SQL
+			// Attention, pour un INSERT, il faut une autre methode que
+			// executeQuery (voir autres methodes de cette classe)
+			ResultSet resultatRequeteSQL = requeteSQLPreparee.executeQuery();
+
+			// Si la requ�te SQL a trouve au moins un objet avec le bon id, on
+			// rentre dans le if
+			while (resultatRequeteSQL.next()) {
+
+				// On enregistre toutes les donnees de l'objet dans des
+				// variables
+				String nomObjet = resultatRequeteSQL.getString("nomObjet");
+				String descriptionObjet = resultatRequeteSQL.getString("descriptionObjet");
+				double prixInitial = resultatRequeteSQL.getDouble("prixInitial");
+				double prixAchatImmediat = resultatRequeteSQL.getDouble("prixAchatImmediat");
+				Timestamp dateAjout = resultatRequeteSQL.getTimestamp("dateAjout");
+				Timestamp dateCloture = resultatRequeteSQL.getTimestamp("dateCloture");
+				int etatObjet = resultatRequeteSQL.getInt("etatObjet");
+				int fkUtilisateur = resultatRequeteSQL.getInt("fkUtilisateur");
+				int fkCategorie = resultatRequeteSQL.getInt("fkCategorie");
+
+				// Creation d'un objet DTO (transfert), pour stocker les
+				// informations de l'objet
+				objetTrouve = new Objet();
+				objetTrouve.setNomObjet(nomObjet);
+				objetTrouve.setDescriptionObjet(descriptionObjet);
+				objetTrouve.setPrixInitial(prixInitial);
+				objetTrouve.setPrixAchatImmediat(prixAchatImmediat);
+				objetTrouve.setDateAjout(dateAjout);
+				objetTrouve.setDateCloture(dateCloture);
+				objetTrouve.setEtatObjet(etatObjet);
+				objetTrouve.setFkUtilisateur(fkUtilisateur);
+				objetTrouve.setFkCategorie(fkCategorie);
+						
+				// On ajoute l'objet cree a la liste d'Objets
+				objets.add(objetTrouve);
 			}
 
-			rs.close();
-			stmt.close();
-			c.close();
-			return (objets);
+			// Fermeture des ressources (obligatoire pour ne pas remplir toute
+			// la memoire du PC)
+			resultatRequeteSQL.close();
+			requeteSQLPreparee.close();
+			connectionDB.close();
+
+			// Le client trouve est retourne, ou null si aucun objet de la DB
+			// n'avait le bon id
+			return objets;
 
 		} catch (Exception e) {
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
@@ -461,6 +493,87 @@ public class DBOperationsSQLite implements DBOperations {
 		}
 
 	}
+	
+	
+	public LinkedList<Objet> getObjetUtilisateur(int idUtilisateur) {
+
+		// Objet de connexion a la db
+		Connection connectionDB = null;
+		// Requete SQL "preparee", ce qui signifie "parametree"
+		PreparedStatement requeteSQLPreparee = null;
+
+		// Variable pour stocker l'objet sour forme d'un objet de type "objet",
+		// lorsqu'on l'aura trouve.
+		Objet objetTrouve = null;
+		LinkedList <Objet> objets = new LinkedList<Objet>();
+
+		try {
+			// Obtention d'une connexion vers la DB
+			connectionDB = DriverManager.getConnection(dbUrl);
+			// La base de donn�es se mettra a jour lorsqu'on la modifiera
+			// (necessaire).
+			connectionDB.setAutoCommit(true);
+
+			// On met des ? a chaque parametre
+			requeteSQLPreparee = connectionDB.prepareStatement("SELECT * FROM Objet WHERE fkUtilisateur=? ");
+			// Le ? est remplace par l'id de l'objet
+			requeteSQLPreparee.setString(1, Integer.toString(idUtilisateur));
+
+			// On execute la requete SQL
+			// Attention, pour un INSERT, il faut une autre methode que
+			// executeQuery (voir autres methodes de cette classe)
+			ResultSet resultatRequeteSQL = requeteSQLPreparee.executeQuery();
+
+			// Si la requ�te SQL a trouve au moins un objet avec le bon id, on
+			// rentre dans le if
+			while (resultatRequeteSQL.next()) {
+
+				// On enregistre toutes les donnees de l'objet dans des
+				// variables
+				String nomObjet = resultatRequeteSQL.getString("nomObjet");
+				String descriptionObjet = resultatRequeteSQL.getString("descriptionObjet");
+				double prixInitial = resultatRequeteSQL.getDouble("prixInitial");
+				double prixAchatImmediat = resultatRequeteSQL.getDouble("prixAchatImmediat");
+				Timestamp dateAjout = resultatRequeteSQL.getTimestamp("dateAjout");
+				Timestamp dateCloture = resultatRequeteSQL.getTimestamp("dateCloture");
+				int etatObjet = resultatRequeteSQL.getInt("etatObjet");
+				int fkUtilisateur = resultatRequeteSQL.getInt("fkUtilisateur");
+				int fkCategorie = resultatRequeteSQL.getInt("fkCategorie");
+
+				// Creation d'un objet DTO (transfert), pour stocker les
+				// informations de l'objet
+				objetTrouve = new Objet();
+				objetTrouve.setNomObjet(nomObjet);
+				objetTrouve.setDescriptionObjet(descriptionObjet);
+				objetTrouve.setPrixInitial(prixInitial);
+				objetTrouve.setPrixAchatImmediat(prixAchatImmediat);
+				objetTrouve.setDateAjout(dateAjout);
+				objetTrouve.setDateCloture(dateCloture);
+				objetTrouve.setEtatObjet(etatObjet);
+				objetTrouve.setFkUtilisateur(fkUtilisateur);
+				objetTrouve.setFkCategorie(fkCategorie);
+						
+				// On ajoute l'objet cree a la liste d'Objets
+				objets.add(objetTrouve);
+			}
+
+			// Fermeture des ressources (obligatoire pour ne pas remplir toute
+			// la memoire du PC)
+			resultatRequeteSQL.close();
+			requeteSQLPreparee.close();
+			connectionDB.close();
+
+			// Le client trouve est retourne, ou null si aucun objet de la DB
+			// n'avait le bon id
+			return objets;
+
+		} catch (Exception e) {
+			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+			return null;
+		}
+
+	}
+	
 	
 	@Override
 	public void voirTousLesObjets() {
@@ -546,7 +659,7 @@ public class DBOperationsSQLite implements DBOperations {
 	
 	/* ------------------------------------------------------------------------------------
 	 * ------------------------------------------------------------------------------------
-	 * -----------------------------------CATEGORIE----------------------------------------
+	 * -----------------------------------ENCHERE------------------------------------------
 	 * ------------------------------------------------------------------------------------
 	 * ------------------------------------------------------------------------------------
 	 */

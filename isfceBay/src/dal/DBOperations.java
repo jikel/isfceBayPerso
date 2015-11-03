@@ -4,8 +4,6 @@ import java.util.LinkedList;
 
 import model.*;
 
-import model.Utilisateur;
-
 public interface DBOperations {
 	
 	public abstract LinkedList<Utilisateur> getUtilisateurs();
@@ -14,6 +12,7 @@ public interface DBOperations {
 	public abstract LinkedList<Enchere> obtenirTousLesEncheres() ;
 	public abstract boolean enregistrerUneEnchere( Enchere Enchere )  ;
 	public abstract LinkedList<Objet> getObjet();
+	public abstract LinkedList<Objet> getObjetUtilisateur(int idUtilisateur) ;
 	public abstract boolean createObjet(Objet newObjet);
 	public abstract Objet dbObtenirObjet(int idObjet);
 	public abstract void voirTousLesObjets ();
