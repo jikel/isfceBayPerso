@@ -118,8 +118,8 @@ public class DBOperationsSQLite implements DBOperations {
 			ResultSet rs = stmt.executeQuery();
 
 			if (rs.next()) {
-				String pseudo = rs.getString("fkpseudo");
-				String mail = rs.getString("mail");
+				String pseudo = rs.getString("pseudo");
+				String mail = rs.getString("email");
 				String password = rs.getString("password");
 				utilisateur = new Utilisateur(id, pseudo, mail, password);
 			}
@@ -450,6 +450,7 @@ public class DBOperationsSQLite implements DBOperations {
 
 				// On enregistre toutes les donnees de l'objet dans des
 				// variables
+				int idObjet = resultatRequeteSQL.getInt("idObjet");
 				String nomObjet = resultatRequeteSQL.getString("nomObjet");
 				String descriptionObjet = resultatRequeteSQL.getString("descriptionObjet");
 				double prixInitial = resultatRequeteSQL.getDouble("prixInitial");
@@ -463,6 +464,7 @@ public class DBOperationsSQLite implements DBOperations {
 				// Creation d'un objet DTO (transfert), pour stocker les
 				// informations de l'objet
 				objetTrouve = new Objet();
+				objetTrouve.setIdObjet(idObjet);
 				objetTrouve.setNomObjet(nomObjet);
 				objetTrouve.setDescriptionObjet(descriptionObjet);
 				objetTrouve.setPrixInitial(prixInitial);
@@ -530,6 +532,7 @@ public class DBOperationsSQLite implements DBOperations {
 
 				// On enregistre toutes les donnees de l'objet dans des
 				// variables
+				int idObjet = resultatRequeteSQL.getInt("idObjet");
 				String nomObjet = resultatRequeteSQL.getString("nomObjet");
 				String descriptionObjet = resultatRequeteSQL.getString("descriptionObjet");
 				double prixInitial = resultatRequeteSQL.getDouble("prixInitial");
@@ -543,6 +546,7 @@ public class DBOperationsSQLite implements DBOperations {
 				// Creation d'un objet DTO (transfert), pour stocker les
 				// informations de l'objet
 				objetTrouve = new Objet();
+				objetTrouve.setIdObjet(idObjet);
 				objetTrouve.setNomObjet(nomObjet);
 				objetTrouve.setDescriptionObjet(descriptionObjet);
 				objetTrouve.setPrixInitial(prixInitial);

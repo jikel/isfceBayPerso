@@ -165,5 +165,8 @@ public class Enchere {
 		this.enchereGagnante = enchereGagnante;
 	}
 
+	public String affichageUtilisateur(){
+		return "Date de l'enchere = "+dateEnchere+"\tMontant = "+montantEnchere+"\n";
+	}
 
 }

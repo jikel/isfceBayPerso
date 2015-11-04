@@ -8,6 +8,7 @@ public interface DBOperations {
 	
 	public abstract LinkedList<Utilisateur> getUtilisateurs();
 	public abstract boolean createUtilisateur(Utilisateur newUtilisateur);
+	public Utilisateur getUtilisateur(int id);
 	public abstract Utilisateur getUtilisateur (String log, String pwd);
 	public abstract LinkedList<Enchere> obtenirTousLesEncheres() ;
 	public abstract boolean enregistrerUneEnchere( Enchere Enchere )  ;

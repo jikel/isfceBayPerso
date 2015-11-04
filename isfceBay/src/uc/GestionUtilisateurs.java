@@ -7,6 +7,8 @@ public interface GestionUtilisateurs {
 
 	public abstract boolean connecterUtilisateur(String login, String password);
 	
+	public abstract Utilisateur choisirUtilisateur (int idUtilisateur);
+	
 	public abstract Utilisateur getCurrentUser();
 
 }

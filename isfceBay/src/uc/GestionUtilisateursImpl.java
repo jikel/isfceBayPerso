@@ -49,5 +49,11 @@ public class GestionUtilisateursImpl implements GestionUtilisateurs {
 		return currentUser;
 	}
 
+	@Override
+	public Utilisateur choisirUtilisateur(int idUtilisateur) {
+		DBOperations dbOperations = launcher.getDBOperations();
+		return dbOperations.getUtilisateur(idUtilisateur);
+	}
+
 }
 

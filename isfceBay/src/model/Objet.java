@@ -13,17 +13,14 @@ public class Objet {
 	private int etatObjet;
 	private int fkUtilisateur;
 	private int fkCategorie;
-	
-	
 
 	public Objet() {
 		super();
 	}
-	
+
 	// Constructeur avec id
 	public Objet(int idObjet, String nomObjet, String descriptionObjet, double prixInitial, double prixAchatImmediat,
-			Timestamp dateAjout, Timestamp dateCloture, int fkUtilisateur,
-			int fkCategorie) {
+			Timestamp dateAjout, Timestamp dateCloture, int fkUtilisateur, int fkCategorie) {
 		this.idObjet = idObjet;
 		this.nomObjet = nomObjet;
 		this.descriptionObjet = descriptionObjet;
@@ -35,11 +32,10 @@ public class Objet {
 		this.fkUtilisateur = fkUtilisateur;
 		this.fkCategorie = fkCategorie;
 	}
-	
+
 	// Constructeur sans id
 	public Objet(String nomObjet, String descriptionObjet, double prixInitial, double prixAchatImmediat,
-			Timestamp dateAjout, Timestamp dateCloture, int fkUtilisateur,
-			int fkCategorie) {
+			Timestamp dateAjout, Timestamp dateCloture, int fkUtilisateur, int fkCategorie) {
 		this.nomObjet = nomObjet;
 		this.descriptionObjet = descriptionObjet;
 		this.prixInitial = prixInitial;
@@ -129,6 +125,13 @@ public class Objet {
 
 	public void setFkCategorie(int fkCategorie) {
 		this.fkCategorie = fkCategorie;
+	}
+
+	public String affichageUtilisateur() {
+		return "Nom = " + nomObjet + "\nDescription de l'objet = " + descriptionObjet + "\nPrix initial = "
+				+ prixInitial + "\nPrix en Achat immediat = " + prixAchatImmediat + "\nDate de la mise en vente = "
+				+ dateAjout + "\nDate de cloture de la vente = " + dateCloture + "\nEtat de l'objet = " + etatObjet
+				+ "\n";
 	}
 
 	@Override

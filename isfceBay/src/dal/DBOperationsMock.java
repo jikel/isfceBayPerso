@@ -101,5 +101,11 @@ public class DBOperationsMock implements DBOperations {
 		return null;
 	}
 
+	@Override
+	public Utilisateur getUtilisateur(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 }
