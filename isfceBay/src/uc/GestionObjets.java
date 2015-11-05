@@ -14,6 +14,8 @@ public interface GestionObjets {
 	
 	public abstract Objet choisirObjet(int idObjet);
 	
+	public abstract LinkedList <Categorie> getCategories();
+	
 	public abstract void voirObjets();
 	
 	public abstract void voirObjetsUtilisateur(Utilisateur utilisateur);
@@ -22,5 +24,6 @@ public interface GestionObjets {
 	
 	public abstract LinkedList<Objet> getObjetsUtilisateur (int idUtilisateur);
 
+	public abstract LinkedList<Objet> getObjetsCategorieUtilisateur (int idUtilisateur, int idCategorie);
 
 }

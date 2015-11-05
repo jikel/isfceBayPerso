@@ -18,6 +18,7 @@ public interface DBOperations {
 	public abstract Objet dbObtenirObjet(int idObjet);
 	public abstract void voirTousLesObjets ();
 	public abstract void voirTousLesObjetsUtilisateurs(int idUtilisateur);
+	public abstract LinkedList<Objet> getObjetCategorieUtilisateur(int idUtilisateur, int idCategorie);
 	public abstract LinkedList<Categorie> getCategories();
 	public abstract Categorie getCategorie(int id);
 	

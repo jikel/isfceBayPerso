@@ -578,6 +578,79 @@ public class DBOperationsSQLite implements DBOperations {
 
 	}
 	
+	public LinkedList<Objet> getObjetCategorieUtilisateur(int idUtilisateur, int idCategorie) {
+
+		Connection connectionDB = null;
+		PreparedStatement requeteSQLPreparee = null;
+
+		Objet objetTrouve = null;
+		LinkedList <Objet> objets = new LinkedList<Objet>();
+
+		try {
+			connectionDB = DriverManager.getConnection(dbUrl);
+			connectionDB.setAutoCommit(true);
+
+			requeteSQLPreparee = connectionDB.prepareStatement("SELECT * FROM Objet WHERE fkUtilisateur=? AND fkCategorie=?");
+			// Le ? est remplace par l'id de l'objet
+			requeteSQLPreparee.setString(1, Integer.toString(idUtilisateur));
+			requeteSQLPreparee.setString(2, Integer.toString(idCategorie));
+
+			// On execute la requete SQL
+			// Attention, pour un INSERT, il faut une autre methode que
+			// executeQuery (voir autres methodes de cette classe)
+			ResultSet resultatRequeteSQL = requeteSQLPreparee.executeQuery();
+
+			// Si la requ�te SQL a trouve au moins un objet avec le bon id, on
+			// rentre dans le if
+			while (resultatRequeteSQL.next()) {
+
+				// On enregistre toutes les donnees de l'objet dans des
+				// variables
+				int idObjet = resultatRequeteSQL.getInt("idObjet");
+				String nomObjet = resultatRequeteSQL.getString("nomObjet");
+				String descriptionObjet = resultatRequeteSQL.getString("descriptionObjet");
+				double prixInitial = resultatRequeteSQL.getDouble("prixInitial");
+				double prixAchatImmediat = resultatRequeteSQL.getDouble("prixAchatImmediat");
+				Timestamp dateAjout = resultatRequeteSQL.getTimestamp("dateAjout");
+				Timestamp dateCloture = resultatRequeteSQL.getTimestamp("dateCloture");
+				int etatObjet = resultatRequeteSQL.getInt("etatObjet");
+				int fkUtilisateur = resultatRequeteSQL.getInt("fkUtilisateur");
+				int fkCategorie = resultatRequeteSQL.getInt("fkCategorie");
+
+				// Creation d'un objet DTO (transfert), pour stocker les
+				// informations de l'objet
+				objetTrouve = new Objet();
+				objetTrouve.setIdObjet(idObjet);
+				objetTrouve.setNomObjet(nomObjet);
+				objetTrouve.setDescriptionObjet(descriptionObjet);
+				objetTrouve.setPrixInitial(prixInitial);
+				objetTrouve.setPrixAchatImmediat(prixAchatImmediat);
+				objetTrouve.setDateAjout(dateAjout);
+				objetTrouve.setDateCloture(dateCloture);
+				objetTrouve.setEtatObjet(etatObjet);
+				objetTrouve.setFkUtilisateur(fkUtilisateur);
+				objetTrouve.setFkCategorie(fkCategorie);
+						
+				// On ajoute l'objet cree a la liste d'Objets
+				objets.add(objetTrouve);
+			}
+
+			// Fermeture des ressources (obligatoire pour ne pas remplir toute
+			// la memoire du PC)
+			resultatRequeteSQL.close();
+			requeteSQLPreparee.close();
+			connectionDB.close();
+
+			// Le client trouve est retourne, ou null si aucun objet de la DB
+			// n'avait le bon id
+			return objets;
+
+		} catch (Exception e) {
+			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+			return null;
+		}
+
+	}
 	
 	@Override
 	public void voirTousLesObjets() {
@@ -645,6 +718,14 @@ public class DBOperationsSQLite implements DBOperations {
 		
 	}
 
+	
+	/* ------------------------------------------------------------------------------------
+	 * ------------------------------------------------------------------------------------
+	 * -----------------------------------ENCHERE------------------------------------------
+	 * ------------------------------------------------------------------------------------
+	 * ------------------------------------------------------------------------------------
+	 */
+	
 	public LinkedList<Enchere> obtenirTousLesEncheres() {
 		return obtenirToutesLesEncheres(-1);
 	}
@@ -659,15 +740,6 @@ public class DBOperationsSQLite implements DBOperations {
 	 *            int
 	 * @return
 	 */
-	
-	
-	/* ------------------------------------------------------------------------------------
-	 * ------------------------------------------------------------------------------------
-	 * -----------------------------------ENCHERE------------------------------------------
-	 * ------------------------------------------------------------------------------------
-	 * ------------------------------------------------------------------------------------
-	 */
-	
 	
 	public LinkedList<Enchere> obtenirToutesLesEncheres(int id) {
 

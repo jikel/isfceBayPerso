@@ -33,10 +33,13 @@ public class MenuConsoleObjet {
 	}
 
 	public void menuGeneral() {
-		System.out.println("Voir liste objet + creer objet bidon");
-		System.out.println("Test de la methode getObjet");
-		System.out.println("Test de la methode getObjetUtilisateur");
-		System.out.println("Voir liste enchere");
+		System.out.println("1. Voir liste objet + creer objet bidon");
+		System.out.println("2. Test de la methode getObjet");
+		System.out.println("3. Test de la methode getObjetUtilisateur");
+		System.out.println("4. Voir liste enchere");
+		System.out.println("5. Voir les categories");
+		System.out.println("6. Voir objets par categorie et par utilisateur");
+		System.out.println("7. Modifier un objet");
 
 		int choix = scanner.nextInt();
 
@@ -53,24 +56,41 @@ public class MenuConsoleObjet {
 
 		}
 
-		if (choix == 2) {
+		else if (choix == 2) {
 			LinkedList<Objet> test = launcher.getGestionObjets().getObjets();
 			System.out.println(test);
 
 		}
 
-		if (choix == 3) {
+		else if (choix == 3) {
 			// System.out.println(launcher.getGestionObjets().getObjetsUtilisateur(15));
 			int test = 0;
 			test = voirObjetsUtilisateur(launcher.getGestionObjets().getObjetsUtilisateur(15));
 			System.out.println(test);
 		}
 
-		if (choix == 4) {
+		else if (choix == 4) {
 			// LinkedList<Enchere> encheres =
 			// launcher.getGestionEncheres().voirEncheres();
 			// System.out.println(encheres);
 			int test = voirEnchereObjet(launcher.getGestionEncheres().voirEncheres());
+		}
+
+		else if (choix == 5) {
+			int test = voirCategorie(launcher.getGestionObjets().getCategories());
+			System.out.println(test);
+		}
+
+		else if (choix == 6) {
+			LinkedList<Objet> objets = launcher.getGestionObjets().getObjetsCategorieUtilisateur(15, 3);
+			System.out.println(objets);
+		}
+
+		else if (choix == 7) {
+			Objet test = launcher.getGestionObjets().choisirObjet(6);
+			System.out.println(test.affichageUtilisateur());
+			modifierObjet(test);
+			System.out.println(test.affichageUtilisateur());
 		}
 
 		else {
@@ -87,12 +107,13 @@ public class MenuConsoleObjet {
 		System.out.println("Entrez le prix de départ pour la vente aux enchères");
 		double prixInitial = 125.20;
 		System.out.println("Voulez vendre l'objet avec un prix fixe (O/N) ?");
-		// String choix = scanner.nextLine();
+		scanner.nextLine();
+		String choix = scanner.nextLine();
 		double prixAchatImmediat = 0;
-		// if((choix.equals("O")) || (choix.equals("o"))) {
-		// System.out.println("Entrez le prix d'achat immédiat de l'objet :");
-		// prixAchatImmediat = scanner.nextDouble();
-		// }
+		if((choix.equals("O")) || (choix.equals("o"))) {
+			System.out.println("Entrez le prix d'achat immédiat de l'objet :");
+			prixAchatImmediat = scanner.nextDouble();
+		}
 		java.util.Date date = new java.util.Date();
 		Timestamp dateAjout = new Timestamp(date.getTime());
 		Timestamp dateCloture = dateAjout;
@@ -133,5 +154,75 @@ public class MenuConsoleObjet {
 					.getGestionUtilisateurs().choisirUtilisateur(encheres.get(i).getParticipant()).getPseudo());
 		}
 		return 0;
+	}
+
+	public int voirCategorie(LinkedList<Categorie> categories) {
+		int taille = categories.size();
+		int choix = 0;
+		for (int i = 0; i < taille; i++) {
+			System.out.println((i + 1) + ".\t" + categories.get(i).getNomCategorie() + "\n");
+		}
+		System.out.println("\nVeuillez choisir le numero de la categorie");
+		choix = scanner.nextInt();
+		if ((choix > 0) && (choix < taille + 1)) {
+			// renvoie l'id de la categorie choisie
+			return categories.get(choix - 1).getIdCategorie();
+		} else {
+			System.out.println("Choix non valable");
+			return 0;
+		}
+	}
+
+	public void modifierObjet(Objet objetAModifier) {
+		int choix = 0;
+		System.out.println("1.\tModifier l'objet en vente");
+		System.out.println("2.\tSupprimer l'objet en vente");
+		choix = scanner.nextInt();
+
+		if (choix == 1) {
+			System.out.println("Quel champ voulez-vous modifier ?");
+			System.out.println("1.\tNom de l'objet");
+			System.out.println("2.\tDescription de l'objet");
+			System.out.println("3.\tPrix initial");
+			System.out.println("4.\tPrix en achat immediat");
+			choix = scanner.nextInt();
+
+			switch (choix) {
+			case 1:
+				System.out.println("Veuillez entrer le nouveau nom de l'objet : ");
+				scanner.nextLine();
+				String nom = scanner.nextLine();
+				objetAModifier.setNomObjet(nom);
+				break;
+			case 2:
+				System.out.println("Veuillez entrer la nouvelle description de l'objet : ");
+				scanner.nextLine();
+				String description = scanner.nextLine();
+				objetAModifier.setDescriptionObjet(description);
+				break;
+			case 3:
+				System.out.println("Veuillez entrer le nouveau prix de départ pour les encheres : ");
+				double prix = scanner.nextDouble();
+				objetAModifier.setPrixInitial(prix);
+				break;
+			case 4:
+				System.out.println("Veuillez entrer le nouveau prix en achat immediat : ");
+				double achat = scanner.nextDouble();
+				objetAModifier.setPrixAchatImmediat(achat);
+				break;
+			default:
+				System.out.println("Choix non valable");
+				break;
+			}
+		}
+
+		else if (choix == 2) {
+			System.out.println("L'objet n'est plus en vente");
+			objetAModifier.setEtatObjet(-1);
+		}
+
+		else {
+			System.out.println("Choix non valable");
+		}
 	}
 }
