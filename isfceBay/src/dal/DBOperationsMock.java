@@ -113,5 +113,17 @@ public class DBOperationsMock implements DBOperations {
 		return null;
 	}
 
+	@Override
+	public boolean modifierObjet(int idObjet, int typeModification, String modification) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public LinkedList<Enchere> getEnchereUtilisateur(int idUtilisateur) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 }

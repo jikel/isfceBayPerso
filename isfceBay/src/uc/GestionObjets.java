@@ -8,9 +8,7 @@ public interface GestionObjets {
 	
 	public abstract boolean ajouterObjet(Objet object);
 	
-	public abstract boolean modifierObjet (int idObjet);
-	
-	public abstract boolean supprimerObjet (int idObjet);
+	public abstract boolean modifierObjet (int idObjet, int typeModification, String modification);
 	
 	public abstract Objet choisirObjet(int idObjet);
 	

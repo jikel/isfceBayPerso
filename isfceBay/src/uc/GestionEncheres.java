@@ -8,5 +8,6 @@ public interface GestionEncheres {
 	
 	public abstract boolean ajouterEnchere( Enchere enchere ) ;
 	public abstract LinkedList<Enchere> voirEncheres()  ;
+	public abstract LinkedList <Enchere> voirEncheresUtilisateur(int idUtilisateur);
 
 }

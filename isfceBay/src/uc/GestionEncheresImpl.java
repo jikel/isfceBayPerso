@@ -88,6 +88,20 @@ public class GestionEncheresImpl implements GestionEncheres {
 		LinkedList<Enchere> lesEncheres = db.obtenirTousLesEncheres();
 		return lesEncheres;
 	}
+
+
+
+
+
+
+
+
+
+	@Override
+	public LinkedList<Enchere> voirEncheresUtilisateur(int idUtilisateur) {
+		DBOperations dbOperations = launcher.getDBOperations();
+		return dbOperations.getEnchereUtilisateur(idUtilisateur);
+	}
 	
 
 	

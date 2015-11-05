@@ -20,22 +20,22 @@ public class GestionObjetsImpl implements GestionObjets{
 		DBOperations dbOperations = launcher.getDBOperations();
 		boolean yesNo = dbOperations.createObjet(object);
 		if(yesNo){
-			System.out.println("Nouvel objet ajouté");
+			System.out.println("Nouvel objet ajoute");
 			return true;
 		}
-		System.out.println("Le nouvel objet n'a pas pu être ajouté");
+		System.out.println("Le nouvel objet n'a pas pu être ajoute");
 		return false;
 	}
 
 	@Override
-	public boolean modifierObjet(int idObjet) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean supprimerObjet(int idObjet) {
-		// TODO Auto-generated method stub
+	public boolean modifierObjet(int idObjet, int typeModification, String modification) {
+		DBOperations dbOperations = launcher.getDBOperations();
+		boolean yesNo = dbOperations.modifierObjet(idObjet, typeModification, modification);
+		if(yesNo){
+			System.out.println("Modification effectuee");
+			return true;
+		}
+		System.out.println("La modification n'a pas pu etre effectuee");
 		return false;
 	}
 

@@ -33,13 +33,14 @@ public class MenuConsoleObjet {
 	}
 
 	public void menuGeneral() {
-		System.out.println("1. Voir liste objet + creer objet bidon");
+		System.out.println("1. Voir liste objet + creer objet ");
 		System.out.println("2. Test de la methode getObjet");
 		System.out.println("3. Test de la methode getObjetUtilisateur");
 		System.out.println("4. Voir liste enchere");
 		System.out.println("5. Voir les categories");
 		System.out.println("6. Voir objets par categorie et par utilisateur");
 		System.out.println("7. Modifier un objet");
+		System.out.println("8. Voir toutes les encheres d'un utilisateur");
 
 		int choix = scanner.nextInt();
 
@@ -90,9 +91,16 @@ public class MenuConsoleObjet {
 			Objet test = launcher.getGestionObjets().choisirObjet(6);
 			System.out.println(test.affichageUtilisateur());
 			modifierObjet(test);
+			test = launcher.getGestionObjets().choisirObjet(6);
 			System.out.println(test.affichageUtilisateur());
 		}
 
+		else if (choix ==8){
+			System.out.println("Voici les encheres de l'utilisateur id = 15");
+			LinkedList<Enchere> encheres = launcher.getGestionEncheres().voirEncheresUtilisateur(15);
+			int test = voirEnchereObjet(encheres);
+		}
+		
 		else {
 			System.out.println("Choix non valable");
 		}
@@ -100,27 +108,32 @@ public class MenuConsoleObjet {
 	}
 
 	public boolean creerObjetEnVente() {
-		System.out.println("Entrez le nom de l'objet à vendre :");
-		String nomObjet = "test";
-		System.out.println("Entrez la description de l'objet à vendre :");
-		String descriptionObjet = "trucmuche";
-		System.out.println("Entrez le prix de départ pour la vente aux enchères");
-		double prixInitial = 125.20;
+		System.out.println("Entrez le nom de l'objet a vendre :");
+		scanner.nextLine();
+		String nomObjet = scanner.nextLine();
+		System.out.println("Entrez la description de l'objet a vendre :");
+		String descriptionObjet = scanner.nextLine();
+		System.out.println("Entrez le prix de depart pour la vente aux encheres");
+		double prixInitial = scanner.nextDouble();
 		System.out.println("Voulez vendre l'objet avec un prix fixe (O/N) ?");
 		scanner.nextLine();
 		String choix = scanner.nextLine();
 		double prixAchatImmediat = 0;
 		if((choix.equals("O")) || (choix.equals("o"))) {
-			System.out.println("Entrez le prix d'achat immédiat de l'objet :");
+			System.out.println("Entrez le prix d'achat immediat de l'objet :");
 			prixAchatImmediat = scanner.nextDouble();
 		}
 		java.util.Date date = new java.util.Date();
 		Timestamp dateAjout = new Timestamp(date.getTime());
 		Timestamp dateCloture = dateAjout;
 		dateCloture.setMonth(dateCloture.getMonth() + 1);
+		
+		// choix de la categorie
+		System.out.println("Veuillez choisir une categorie pour l'objet a vendre");
+		int choixCategorie = voirCategorie(launcher.getGestionObjets().getCategories());
 
 		Objet newObjet = new Objet(nomObjet, descriptionObjet, prixInitial, prixAchatImmediat, dateAjout, dateCloture,
-				1, 1);
+				1, choixCategorie);
 		return launcher.getGestionObjets().ajouterObjet(newObjet);
 
 	}
@@ -172,7 +185,7 @@ public class MenuConsoleObjet {
 			return 0;
 		}
 	}
-
+	
 	public void modifierObjet(Objet objetAModifier) {
 		int choix = 0;
 		System.out.println("1.\tModifier l'objet en vente");
@@ -192,23 +205,25 @@ public class MenuConsoleObjet {
 				System.out.println("Veuillez entrer le nouveau nom de l'objet : ");
 				scanner.nextLine();
 				String nom = scanner.nextLine();
-				objetAModifier.setNomObjet(nom);
+				launcher.getGestionObjets().modifierObjet(objetAModifier.getIdObjet(), 1, nom);
 				break;
 			case 2:
 				System.out.println("Veuillez entrer la nouvelle description de l'objet : ");
 				scanner.nextLine();
 				String description = scanner.nextLine();
-				objetAModifier.setDescriptionObjet(description);
+				launcher.getGestionObjets().modifierObjet(objetAModifier.getIdObjet(), 2, description);
 				break;
 			case 3:
 				System.out.println("Veuillez entrer le nouveau prix de départ pour les encheres : ");
-				double prix = scanner.nextDouble();
-				objetAModifier.setPrixInitial(prix);
+				scanner.nextLine();
+				String prix = scanner.nextLine();
+				launcher.getGestionObjets().modifierObjet(objetAModifier.getIdObjet(), 3, prix);
 				break;
 			case 4:
 				System.out.println("Veuillez entrer le nouveau prix en achat immediat : ");
-				double achat = scanner.nextDouble();
-				objetAModifier.setPrixAchatImmediat(achat);
+				scanner.nextLine();
+				String achat = scanner.nextLine();
+				launcher.getGestionObjets().modifierObjet(objetAModifier.getIdObjet(), 4, achat);
 				break;
 			default:
 				System.out.println("Choix non valable");
@@ -218,7 +233,7 @@ public class MenuConsoleObjet {
 
 		else if (choix == 2) {
 			System.out.println("L'objet n'est plus en vente");
-			objetAModifier.setEtatObjet(-1);
+			launcher.getGestionObjets().modifierObjet(objetAModifier.getIdObjet(), 5, "-1");
 		}
 
 		else {
