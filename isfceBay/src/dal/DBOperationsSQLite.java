@@ -26,15 +26,10 @@ public class DBOperationsSQLite implements DBOperations {
 
 	/*
 	 * -------------------------------------------------------------------------
-	 * -----------
 	 * -------------------------------------------------------------------------
-	 * -----------
 	 * -----------------------------------UTILISATEUR---------------------------
-	 * -----------
 	 * -------------------------------------------------------------------------
-	 * -----------
 	 * -------------------------------------------------------------------------
-	 * -----------
 	 */
 	public LinkedList<Utilisateur> getUtilisateurs() {
 
@@ -168,15 +163,10 @@ public class DBOperationsSQLite implements DBOperations {
 
 	/*
 	 * -------------------------------------------------------------------------
-	 * -----------
 	 * -------------------------------------------------------------------------
-	 * -----------
 	 * -----------------------------------PROFIL--------------------------------
-	 * -----------
 	 * -------------------------------------------------------------------------
-	 * -----------
 	 * -------------------------------------------------------------------------
-	 * -----------
 	 */
 
 	public boolean createProfil(Profil profilToAdd) {
@@ -248,15 +238,10 @@ public class DBOperationsSQLite implements DBOperations {
 
 	/*
 	 * -------------------------------------------------------------------------
-	 * -----------
 	 * -------------------------------------------------------------------------
-	 * -----------
 	 * -----------------------------------CATEGORIE-----------------------------
-	 * -----------
 	 * -------------------------------------------------------------------------
-	 * -----------
 	 * -------------------------------------------------------------------------
-	 * -----------
 	 */
 
 	public LinkedList<Categorie> getCategories() {
@@ -312,15 +297,10 @@ public class DBOperationsSQLite implements DBOperations {
 
 	/*
 	 * -------------------------------------------------------------------------
-	 * -----------
 	 * -------------------------------------------------------------------------
-	 * -----------
 	 * -----------------------------------OBJET---------------------------------
-	 * -----------
 	 * -------------------------------------------------------------------------
-	 * -----------
 	 * -------------------------------------------------------------------------
-	 * -----------
 	 */
 
 	public boolean createObjet(Objet newObjet) {
@@ -750,7 +730,7 @@ public class DBOperationsSQLite implements DBOperations {
 		LinkedList<Objet> objets = new LinkedList<Objet>();
 		boolean doublon = false;
 		int fkObjet = 0;
-		int taille =0;
+		int taille = 0;
 
 		try {
 			connectionDB = DriverManager.getConnection(dbUrl);
@@ -761,21 +741,20 @@ public class DBOperationsSQLite implements DBOperations {
 			ResultSet resultatRequeteSQL = requeteSQLPreparee.executeQuery();
 
 			while (resultatRequeteSQL.next()) {
-				
+
 				fkObjet = resultatRequeteSQL.getInt("fkObjet");
-				if(taille >0){
-					for (int i = 0; i < objets.size() ; i++) {
-						if(objets.get(i).getIdObjet() == fkObjet){
-							doublon =true;
+				if (taille > 0) {
+					for (int i = 0; i < objets.size(); i++) {
+						if (objets.get(i).getIdObjet() == fkObjet) {
+							doublon = true;
 						}
 					}
 				}
-				
-				
-				if(doublon == false){
+
+				if (doublon == false) {
 					objetTrouve = dbObtenirObjet(fkObjet);
 					objets.add(objetTrouve);
-					taille ++;
+					taille++;
 				}
 
 				doublon = false;
@@ -862,15 +841,10 @@ public class DBOperationsSQLite implements DBOperations {
 
 	/*
 	 * -------------------------------------------------------------------------
-	 * -----------
 	 * -------------------------------------------------------------------------
-	 * -----------
 	 * -----------------------------------ENCHERE-------------------------------
-	 * -----------
 	 * -------------------------------------------------------------------------
-	 * -----------
 	 * -------------------------------------------------------------------------
-	 * -----------
 	 */
 
 	public LinkedList<Enchere> obtenirTousLesEncheres() {
@@ -991,6 +965,54 @@ public class DBOperationsSQLite implements DBOperations {
 
 			requeteSQLPreparee = connectionDB.prepareStatement("SELECT * FROM Enchere WHERE participant =? ");
 			requeteSQLPreparee.setString(1, Integer.toString(idUtilisateur));
+
+			ResultSet resultatRequeteSQL = requeteSQLPreparee.executeQuery();
+
+			while (resultatRequeteSQL.next()) {
+
+				int idEnchere = resultatRequeteSQL.getInt("idEnchere");
+				int fkObjet = resultatRequeteSQL.getInt("fkObjet");
+				int participant = resultatRequeteSQL.getInt("participant");
+				double montantEnchere = resultatRequeteSQL.getDouble("montantEnchere");
+				Timestamp dateEnchere = resultatRequeteSQL.getTimestamp("dateEnchere");
+				int enchereGagnante = resultatRequeteSQL.getInt("enchereGagnante");
+
+				enchereTrouvee = new Enchere();
+				enchereTrouvee.setIdEnchere(idEnchere);
+				enchereTrouvee.setFkObjet(fkObjet);
+				enchereTrouvee.setParticipant(participant);
+				enchereTrouvee.setMontantEnchere(montantEnchere);
+				enchereTrouvee.setDateEnchere(dateEnchere);
+				enchereTrouvee.setEnchereGagnante(enchereGagnante);
+
+				encheres.add(enchereTrouvee);
+			}
+
+			resultatRequeteSQL.close();
+			requeteSQLPreparee.close();
+			connectionDB.close();
+
+			return encheres;
+
+		} catch (Exception e) {
+			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+			return null;
+		}
+	}
+	
+	public LinkedList <Enchere> getEnchereObjet (int idObjet){
+		Connection connectionDB = null;
+		PreparedStatement requeteSQLPreparee = null;
+
+		Enchere enchereTrouvee = null;
+		LinkedList<Enchere> encheres = new LinkedList<Enchere>();
+
+		try {
+			connectionDB = DriverManager.getConnection(dbUrl);
+			connectionDB.setAutoCommit(true);
+
+			requeteSQLPreparee = connectionDB.prepareStatement("SELECT * FROM Enchere WHERE fkObjet =? ");
+			requeteSQLPreparee.setString(1, Integer.toString(idObjet));
 
 			ResultSet resultatRequeteSQL = requeteSQLPreparee.executeQuery();
 

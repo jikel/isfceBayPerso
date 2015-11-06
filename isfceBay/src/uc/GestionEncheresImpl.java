@@ -31,13 +31,6 @@ public class GestionEncheresImpl implements GestionEncheres {
 	}
 	
 	
-	
-	
-	
-	
-	
-
-	
 	public  boolean ajouterEnchere( Enchere enchere ) {
 
 		boolean resultatAjoutEnchereEnDB = db.enregistrerUneEnchere(enchere);
@@ -77,8 +70,6 @@ public class GestionEncheresImpl implements GestionEncheres {
 	}	
 	
 	
-	
-	
 	/**
 	 * Cette fonctionnalit� est lanc�e par l'IHM, elle demande � la DB la liste des clients,
 	 * puis la fournit � la couche IHM.
@@ -90,18 +81,25 @@ public class GestionEncheresImpl implements GestionEncheres {
 	}
 
 
-
-
-
-
-
-
-
 	@Override
 	public LinkedList<Enchere> voirEncheresUtilisateur(int idUtilisateur) {
 		DBOperations dbOperations = launcher.getDBOperations();
 		return dbOperations.getEnchereUtilisateur(idUtilisateur);
 	}
+
+
+	@Override
+	public LinkedList<Enchere> voirEncheresObjet(int idObjet) {
+		DBOperations dbOperations = launcher.getDBOperations();
+		return dbOperations.getEnchereObjet(idObjet);
+	}
+
+
+//	@Override
+//	public Enchere choisirEnchereGagnante(int idObjet) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
 	
 
 	
