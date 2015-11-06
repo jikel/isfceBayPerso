@@ -83,5 +83,11 @@ public class GestionObjetsImpl implements GestionObjets{
 		return dbOperations.getCategories();
 	}
 
+	@Override
+	public LinkedList<Objet> getObjetsEnchere(int idUtilisateur) {
+		DBOperations dbOperations = launcher.getDBOperations();
+		return dbOperations.getObjetEnchere(idUtilisateur);
+	}
+
 
 }

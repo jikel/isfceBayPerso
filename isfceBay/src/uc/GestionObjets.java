@@ -23,5 +23,7 @@ public interface GestionObjets {
 	public abstract LinkedList<Objet> getObjetsUtilisateur (int idUtilisateur);
 
 	public abstract LinkedList<Objet> getObjetsCategorieUtilisateur (int idUtilisateur, int idCategorie);
+	
+	public abstract LinkedList <Objet> getObjetsEnchere (int idUtilisateur);
 
 }

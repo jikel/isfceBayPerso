@@ -59,7 +59,7 @@ public class ConnexionConsole {
 						int choixVenteEnchere = 3;
 						do {
 							System.out.println(
-									"1. Voir les objets que l'utilisateur a mis en vente \n2. Voir toutes les enchères que l'utilisateur suit");
+									"1. Voir les objets que vous avez mis en vente \n2. Voir toutes les enchères que vous suivez");
 							choixVenteEnchere = scanner.nextInt();
 						} while ((choixVenteEnchere != 1) && (choixVenteEnchere != 2));
 

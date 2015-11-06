@@ -41,6 +41,7 @@ public class MenuConsoleObjet {
 		System.out.println("6. Voir objets par categorie et par utilisateur");
 		System.out.println("7. Modifier un objet");
 		System.out.println("8. Voir toutes les encheres d'un utilisateur");
+		System.out.println("9. Voir les objets sur lesquels on a encherit");
 
 		int choix = scanner.nextInt();
 
@@ -101,6 +102,11 @@ public class MenuConsoleObjet {
 			int test = voirEnchereObjet(encheres);
 		}
 		
+		else if (choix ==9){
+			System.out.println("Voici les objets sur lequelles on a mis une enchere");
+			LinkedList <Objet> objets = launcher.getGestionObjets().getObjetsEnchere(15);
+			System.out.println(objets);
+		}
 		else {
 			System.out.println("Choix non valable");
 		}

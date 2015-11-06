@@ -24,11 +24,17 @@ public class DBOperationsSQLite implements DBOperations {
 		}
 	}
 
-	/* ------------------------------------------------------------------------------------
-	 * ------------------------------------------------------------------------------------
-	 * -----------------------------------UTILISATEUR--------------------------------------
-	 * ------------------------------------------------------------------------------------
-	 * ------------------------------------------------------------------------------------
+	/*
+	 * -------------------------------------------------------------------------
+	 * -----------
+	 * -------------------------------------------------------------------------
+	 * -----------
+	 * -----------------------------------UTILISATEUR---------------------------
+	 * -----------
+	 * -------------------------------------------------------------------------
+	 * -----------
+	 * -------------------------------------------------------------------------
+	 * -----------
 	 */
 	public LinkedList<Utilisateur> getUtilisateurs() {
 
@@ -159,18 +165,20 @@ public class DBOperationsSQLite implements DBOperations {
 			return null;
 		}
 	}
-	
-	
-	
-	
-	
-	/* ------------------------------------------------------------------------------------
-	 * ------------------------------------------------------------------------------------
-	 * -----------------------------------PROFIL-------------------------------------------
-	 * ------------------------------------------------------------------------------------
-	 * ------------------------------------------------------------------------------------
+
+	/*
+	 * -------------------------------------------------------------------------
+	 * -----------
+	 * -------------------------------------------------------------------------
+	 * -----------
+	 * -----------------------------------PROFIL--------------------------------
+	 * -----------
+	 * -------------------------------------------------------------------------
+	 * -----------
+	 * -------------------------------------------------------------------------
+	 * -----------
 	 */
-	
+
 	public boolean createProfil(Profil profilToAdd) {
 
 		Connection connectionDB = null;
@@ -204,8 +212,8 @@ public class DBOperationsSQLite implements DBOperations {
 			e.printStackTrace();
 			return false;
 		}
-	}	
-	
+	}
+
 	public Profil getProfil(Utilisateur user) {
 		Connection c = null;
 		PreparedStatement stmt = null;
@@ -237,14 +245,20 @@ public class DBOperationsSQLite implements DBOperations {
 			return null;
 		}
 	}
-	
-	/* ------------------------------------------------------------------------------------
-	 * ------------------------------------------------------------------------------------
-	 * -----------------------------------CATEGORIE----------------------------------------
-	 * ------------------------------------------------------------------------------------
-	 * ------------------------------------------------------------------------------------
+
+	/*
+	 * -------------------------------------------------------------------------
+	 * -----------
+	 * -------------------------------------------------------------------------
+	 * -----------
+	 * -----------------------------------CATEGORIE-----------------------------
+	 * -----------
+	 * -------------------------------------------------------------------------
+	 * -----------
+	 * -------------------------------------------------------------------------
+	 * -----------
 	 */
-	
+
 	public LinkedList<Categorie> getCategories() {
 		LinkedList<Categorie> categories = new LinkedList<Categorie>();
 		Connection c = null;
@@ -296,14 +310,19 @@ public class DBOperationsSQLite implements DBOperations {
 		}
 	}
 
-	
-	/* ------------------------------------------------------------------------------------
-	 * ------------------------------------------------------------------------------------
-	 * -----------------------------------OBJET--------------------------------------------
-	 * ------------------------------------------------------------------------------------
-	 * ------------------------------------------------------------------------------------
+	/*
+	 * -------------------------------------------------------------------------
+	 * -----------
+	 * -------------------------------------------------------------------------
+	 * -----------
+	 * -----------------------------------OBJET---------------------------------
+	 * -----------
+	 * -------------------------------------------------------------------------
+	 * -----------
+	 * -------------------------------------------------------------------------
+	 * -----------
 	 */
-	
+
 	public boolean createObjet(Objet newObjet) {
 		Connection connectionDB = null;
 		PreparedStatement requeteSQLPreparee = null;
@@ -314,7 +333,8 @@ public class DBOperationsSQLite implements DBOperations {
 
 			requeteSQLPreparee = connectionDB.prepareStatement(
 					"INSERT INTO Objet(nomObjet, descriptionObjet, prixInitial, prixAchatImmediat, dateAjout, dateCloture, etatObjet, fkUtilisateur, fkCategorie) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?);");
-			//requeteSQLPreparee.setString(1, Integer.toString(newObjet.getIdObjet()));
+			// requeteSQLPreparee.setString(1,
+			// Integer.toString(newObjet.getIdObjet()));
 			requeteSQLPreparee.setString(1, newObjet.getNomObjet());
 			requeteSQLPreparee.setString(2, newObjet.getDescriptionObjet());
 			requeteSQLPreparee.setString(3, Double.toString(newObjet.getPrixInitial()));
@@ -430,42 +450,42 @@ public class DBOperationsSQLite implements DBOperations {
 			connectionDB.setAutoCommit(true);
 
 			// 1. modification du nom
-			if(typeModification == 1){
+			if (typeModification == 1) {
 				requeteSQLPreparee = connectionDB.prepareStatement("UPDATE Objet SET nomObjet = ? WHERE idObjet=? ");
 				requeteSQLPreparee.setString(1, modification);
-				requeteSQLPreparee.setString(2, Integer.toString(idObjet));	
+				requeteSQLPreparee.setString(2, Integer.toString(idObjet));
 			}
-			
+
 			// 2. modification de la description
-			else if (typeModification ==2){
-				requeteSQLPreparee = connectionDB.prepareStatement("UPDATE Objet SET descriptionObjet = ? WHERE idObjet=? ");
+			else if (typeModification == 2) {
+				requeteSQLPreparee = connectionDB
+						.prepareStatement("UPDATE Objet SET descriptionObjet = ? WHERE idObjet=? ");
 				requeteSQLPreparee.setString(1, modification);
-				requeteSQLPreparee.setString(2, Integer.toString(idObjet));		
+				requeteSQLPreparee.setString(2, Integer.toString(idObjet));
 			}
-				
-			
+
 			// 3. modification du prixInitial
-			else if (typeModification ==3){
+			else if (typeModification == 3) {
 				requeteSQLPreparee = connectionDB.prepareStatement("UPDATE Objet SET prixInitial = ? WHERE idObjet=? ");
 				requeteSQLPreparee.setString(1, modification);
-				requeteSQLPreparee.setString(2, Integer.toString(idObjet));		
+				requeteSQLPreparee.setString(2, Integer.toString(idObjet));
 			}
-				
-			
+
 			// 4. modification du prixAchatImmediat
-			else if(typeModification ==4){
-				requeteSQLPreparee = connectionDB.prepareStatement("UPDATE Objet SET prixAchatImmediat = ? WHERE idObjet=? ");
+			else if (typeModification == 4) {
+				requeteSQLPreparee = connectionDB
+						.prepareStatement("UPDATE Objet SET prixAchatImmediat = ? WHERE idObjet=? ");
 				requeteSQLPreparee.setString(1, modification);
-				requeteSQLPreparee.setString(2, Integer.toString(idObjet));			
+				requeteSQLPreparee.setString(2, Integer.toString(idObjet));
 			}
-			
+
 			// 5. modifier l'etat de l'objet
-			else if(typeModification ==5){
+			else if (typeModification == 5) {
 				requeteSQLPreparee = connectionDB.prepareStatement("UPDATE Objet SET etatObjet = ? WHERE idObjet=? ");
 				requeteSQLPreparee.setString(1, modification);
-				requeteSQLPreparee.setString(2, Integer.toString(idObjet));	
+				requeteSQLPreparee.setString(2, Integer.toString(idObjet));
 			}
-			
+
 			// On execute la requete SQL
 			// Attention, pour un UPDATE, il faut une autre methode que
 			// executeQuery (voir autres methodes de cette classe)
@@ -485,8 +505,8 @@ public class DBOperationsSQLite implements DBOperations {
 			return false;
 		}
 
-	}	
-	
+	}
+
 	public LinkedList<Objet> getObjet() {
 
 		// Objet de connexion a la db
@@ -497,7 +517,7 @@ public class DBOperationsSQLite implements DBOperations {
 		// Variable pour stocker l'objet sour forme d'un objet de type "objet",
 		// lorsqu'on l'aura trouve.
 		Objet objetTrouve = null;
-		LinkedList <Objet> objets = new LinkedList<Objet>();
+		LinkedList<Objet> objets = new LinkedList<Objet>();
 
 		try {
 			// Obtention d'une connexion vers la DB
@@ -543,7 +563,7 @@ public class DBOperationsSQLite implements DBOperations {
 				objetTrouve.setEtatObjet(etatObjet);
 				objetTrouve.setFkUtilisateur(fkUtilisateur);
 				objetTrouve.setFkCategorie(fkCategorie);
-						
+
 				// On ajoute l'objet cree a la liste d'Objets
 				objets.add(objetTrouve);
 			}
@@ -564,11 +584,10 @@ public class DBOperationsSQLite implements DBOperations {
 		}
 
 	}
-	
-	
+
 	public LinkedList<Objet> getObjetUtilisateur(int idUtilisateur) {
 
-// Objet de connexion a la db
+		// Objet de connexion a la db
 		Connection connectionDB = null;
 		// Requete SQL "preparee", ce qui signifie "parametree"
 		PreparedStatement requeteSQLPreparee = null;
@@ -576,7 +595,7 @@ public class DBOperationsSQLite implements DBOperations {
 		// Variable pour stocker l'objet sour forme d'un objet de type "objet",
 		// lorsqu'on l'aura trouve.
 		Objet objetTrouve = null;
-		LinkedList <Objet> objets = new LinkedList<Objet>();
+		LinkedList<Objet> objets = new LinkedList<Objet>();
 
 		try {
 			// Obtention d'une connexion vers la DB
@@ -625,7 +644,7 @@ public class DBOperationsSQLite implements DBOperations {
 				objetTrouve.setEtatObjet(etatObjet);
 				objetTrouve.setFkUtilisateur(fkUtilisateur);
 				objetTrouve.setFkCategorie(fkCategorie);
-						
+
 				// On ajoute l'objet cree a la liste d'Objets
 				objets.add(objetTrouve);
 			}
@@ -646,20 +665,21 @@ public class DBOperationsSQLite implements DBOperations {
 		}
 
 	}
-	
+
 	public LinkedList<Objet> getObjetCategorieUtilisateur(int idUtilisateur, int idCategorie) {
 
 		Connection connectionDB = null;
 		PreparedStatement requeteSQLPreparee = null;
 
 		Objet objetTrouve = null;
-		LinkedList <Objet> objets = new LinkedList<Objet>();
+		LinkedList<Objet> objets = new LinkedList<Objet>();
 
 		try {
 			connectionDB = DriverManager.getConnection(dbUrl);
 			connectionDB.setAutoCommit(true);
 
-			requeteSQLPreparee = connectionDB.prepareStatement("SELECT * FROM Objet WHERE fkUtilisateur=? AND fkCategorie=?");
+			requeteSQLPreparee = connectionDB
+					.prepareStatement("SELECT * FROM Objet WHERE fkUtilisateur=? AND fkCategorie=?");
 			// Le ? est remplace par l'id de l'objet
 			requeteSQLPreparee.setString(1, Integer.toString(idUtilisateur));
 			requeteSQLPreparee.setString(2, Integer.toString(idCategorie));
@@ -699,7 +719,7 @@ public class DBOperationsSQLite implements DBOperations {
 				objetTrouve.setEtatObjet(etatObjet);
 				objetTrouve.setFkUtilisateur(fkUtilisateur);
 				objetTrouve.setFkCategorie(fkCategorie);
-						
+
 				// On ajoute l'objet cree a la liste d'Objets
 				objets.add(objetTrouve);
 			}
@@ -720,7 +740,60 @@ public class DBOperationsSQLite implements DBOperations {
 		}
 
 	}
-	
+
+	public LinkedList<Objet> getObjetEnchere(int idUtilisateur) {
+
+		Connection connectionDB = null;
+		PreparedStatement requeteSQLPreparee = null;
+
+		Objet objetTrouve = null;
+		LinkedList<Objet> objets = new LinkedList<Objet>();
+		boolean doublon = false;
+		int fkObjet = 0;
+		int taille =0;
+
+		try {
+			connectionDB = DriverManager.getConnection(dbUrl);
+			connectionDB.setAutoCommit(true);
+
+			requeteSQLPreparee = connectionDB.prepareStatement("SELECT * FROM Enchere WHERE participant = ? ");
+			requeteSQLPreparee.setString(1, Integer.toString(idUtilisateur));
+			ResultSet resultatRequeteSQL = requeteSQLPreparee.executeQuery();
+
+			while (resultatRequeteSQL.next()) {
+				
+				fkObjet = resultatRequeteSQL.getInt("fkObjet");
+				if(taille >0){
+					for (int i = 0; i < objets.size() ; i++) {
+						if(objets.get(i).getIdObjet() == fkObjet){
+							doublon =true;
+						}
+					}
+				}
+				
+				
+				if(doublon == false){
+					objetTrouve = dbObtenirObjet(fkObjet);
+					objets.add(objetTrouve);
+					taille ++;
+				}
+
+				doublon = false;
+			}
+
+			resultatRequeteSQL.close();
+			requeteSQLPreparee.close();
+			connectionDB.close();
+
+			return objets;
+
+		} catch (Exception e) {
+			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+			return null;
+		}
+
+	}
+
 	@Override
 	public void voirTousLesObjets() {
 		Connection c = null;
@@ -751,8 +824,8 @@ public class DBOperationsSQLite implements DBOperations {
 		} catch (Exception e) {
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
 		}
-	}	
-	
+	}
+
 	@Override
 	public void voirTousLesObjetsUtilisateurs(int idUtilisateur) {
 		Connection c = null;
@@ -784,17 +857,22 @@ public class DBOperationsSQLite implements DBOperations {
 		} catch (Exception e) {
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
 		}
-		
+
 	}
 
-	
-	/* ------------------------------------------------------------------------------------
-	 * ------------------------------------------------------------------------------------
-	 * -----------------------------------ENCHERE------------------------------------------
-	 * ------------------------------------------------------------------------------------
-	 * ------------------------------------------------------------------------------------
+	/*
+	 * -------------------------------------------------------------------------
+	 * -----------
+	 * -------------------------------------------------------------------------
+	 * -----------
+	 * -----------------------------------ENCHERE-------------------------------
+	 * -----------
+	 * -------------------------------------------------------------------------
+	 * -----------
+	 * -------------------------------------------------------------------------
+	 * -----------
 	 */
-	
+
 	public LinkedList<Enchere> obtenirTousLesEncheres() {
 		return obtenirToutesLesEncheres(-1);
 	}
@@ -809,7 +887,7 @@ public class DBOperationsSQLite implements DBOperations {
 	 *            int
 	 * @return
 	 */
-	
+
 	public LinkedList<Enchere> obtenirToutesLesEncheres(int id) {
 
 		LinkedList<Enchere> lesEncheres = new LinkedList<Enchere>();
@@ -899,13 +977,13 @@ public class DBOperationsSQLite implements DBOperations {
 		}
 
 	}
-	
-	public LinkedList <Enchere> getEnchereUtilisateur (int idUtilisateur){
+
+	public LinkedList<Enchere> getEnchereUtilisateur(int idUtilisateur) {
 		Connection connectionDB = null;
 		PreparedStatement requeteSQLPreparee = null;
 
 		Enchere enchereTrouvee = null;
-		LinkedList <Enchere> encheres = new LinkedList<Enchere>();
+		LinkedList<Enchere> encheres = new LinkedList<Enchere>();
 
 		try {
 			connectionDB = DriverManager.getConnection(dbUrl);
@@ -932,7 +1010,7 @@ public class DBOperationsSQLite implements DBOperations {
 				enchereTrouvee.setMontantEnchere(montantEnchere);
 				enchereTrouvee.setDateEnchere(dateEnchere);
 				enchereTrouvee.setEnchereGagnante(enchereGagnante);
-						
+
 				encheres.add(enchereTrouvee);
 			}
 
@@ -947,9 +1025,5 @@ public class DBOperationsSQLite implements DBOperations {
 			return null;
 		}
 	}
-
-	
-
-	
 
 }
