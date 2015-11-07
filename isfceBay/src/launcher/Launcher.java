@@ -39,8 +39,8 @@ public class Launcher {
 		// CHOIX INTERFACE SWING/CONSOLE
 		 //connexionSwing = new ConnexionSwing(this);
 		 //connexionConsole=new ConnexionConsole(this);
-		 objetConsole = new MenuConsoleObjet(this);
-		 //blocageConsole = new BlocageDB(this);
+		 //objetConsole = new MenuConsoleObjet(this);
+		 blocageConsole = new BlocageDB(this);
 		 //enchereConsole = new EnchereConsole(this);
 	}
 

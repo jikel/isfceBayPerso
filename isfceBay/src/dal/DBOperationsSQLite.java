@@ -124,6 +124,9 @@ public class DBOperationsSQLite implements DBOperations {
 				String password = rs.getString("password");
 				utilisateur = new Utilisateur(id, pseudo, mail, password);
 			}
+			stmt.close();
+			rs.close();
+			c.close();
 			return utilisateur;
 
 		} catch (Exception e) {
@@ -153,6 +156,9 @@ public class DBOperationsSQLite implements DBOperations {
 				String password = rs.getString("password");
 				utilisateur = new Utilisateur(id, pseudo, mail, password);
 			}
+			stmt.close();
+			rs.close();
+			c.close();
 			return utilisateur;
 
 		} catch (Exception e) {
@@ -228,6 +234,9 @@ public class DBOperationsSQLite implements DBOperations {
 				String pays = rs.getString("pays");
 				profil = new Profil(id, nom, prenom, naissance, sexe, adresse, pays, user);
 			}
+			stmt.close();
+			rs.close();
+			c.close();
 			return profil;
 
 		} catch (Exception e) {
