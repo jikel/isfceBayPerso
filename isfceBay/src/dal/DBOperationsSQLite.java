@@ -296,6 +296,9 @@ public class DBOperationsSQLite implements DBOperations {
 				String nomCat = rs.getString("nomCategorie");
 				categorie = new Categorie(id, nomCat);
 			}
+			c.close();
+			stmt.close();
+			rs.close();
 			return categorie;
 
 		} catch (Exception e) {
@@ -482,7 +485,6 @@ public class DBOperationsSQLite implements DBOperations {
 
 			// Fermeture des ressources (obligatoire pour ne pas remplir toute
 			// la memoire du PC)
-			requeteSQLPreparee.close();
 			requeteSQLPreparee.close();
 			connectionDB.close();
 
